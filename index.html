@@ -12,25 +12,28 @@
 
 <div class="scene">
 
-  <!-- Notebook background -->
+  <!-- Notebook container — image + overlay are co-located -->
   <div class="notebook-wrap">
     <img class="notebook-img" id="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
-  </div>
 
-  <!-- Overlay — JS sizes/positions this to match the rendered notebook image exactly -->
-  <div class="notebook-overlay" id="notebook-overlay">
+    <div class="notebook-overlay" id="notebook-overlay">
 
-    <!-- Left page container (overflow:hidden — nothing escapes) -->
-    <div class="nb-page nb-page-left">
+      <!-- Left page container (overflow:hidden — nothing escapes) -->
+      <div class="nb-page nb-page-left">
 
-    </div><!-- /.nb-page-left -->
+        <div class="nb-item title-item" id="title-item" data-href="#">
+          <img src="photo_assetts/Title_Transparent.png" alt="Just Do The Right Thing">
+        </div>
 
-    <!-- Right page container -->
-    <div class="nb-page nb-page-right">
+      </div><!-- /.nb-page-left -->
 
-    </div><!-- /.nb-page-right -->
+      <!-- Right page container -->
+      <div class="nb-page nb-page-right">
 
-  </div><!-- /.notebook-overlay -->
+      </div><!-- /.nb-page-right -->
+
+    </div><!-- /.notebook-overlay -->
+  </div><!-- /.notebook-wrap -->
 
 
 </div>

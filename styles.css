@@ -11,6 +11,7 @@ html, body {
   position: relative;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,23 +19,25 @@ html, body {
 }
 
 /* ── NOTEBOOK ──────────────────────────────────────── */
+/* Notebook image natural size: 1264×841 (ratio ≈ 1.503) */
 .notebook-wrap {
-  width: 100%;
-  height: 100%;
-}
-
-.notebook-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  position: relative;
+  width: min(100vw, calc(100vh * 1264 / 841));
+  height: min(100vh, calc(100vw * 841 / 1264));
   filter: drop-shadow(0 12px 40px rgba(0,0,0,0.35))
           drop-shadow(0 4px 12px rgba(0,0,0,0.2));
 }
 
-/* ── OVERLAY — JS sets left/top/width/height ───────── */
+.notebook-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── OVERLAY ───────────────────────────────────────── */
 .notebook-overlay {
   position: absolute;
+  inset: 0;
   pointer-events: none;
   z-index: 10;
 }
@@ -100,9 +103,9 @@ html, body {
 /* ── LEFT PAGE ITEMS ───────────────────────────────── */
 
 .title-item {
-  left: 2%;
-  top: 3%;
-  width: 88%;
+  left: 5%;
+  top: -2%;
+  width: 60%;
   transform: rotate(-1deg);
 }
 .title-item:hover {
@@ -264,10 +267,14 @@ html, body {
 }
 
 
-/* ── MOBILE ────────────────────────────────────────── */
+/* ── SMALL SCREEN — single page view ──────────────── */
 @media (max-width: 768px) {
   .notebook-wrap {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
   }
 
@@ -280,7 +287,6 @@ html, body {
     left: 50%;
     top: 50%;
     transform: translate(-71%, -50%);
-    object-fit: unset;
   }
 
   .notebook-overlay { display: none; }
