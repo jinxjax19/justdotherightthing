@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Just Do The Right Thing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="tv-overlay" class="tv-overlay">
+    <canvas id="static-canvas"></canvas>
+    <div class="scanlines"></div>
+  </div>
+
+  <div class="page-wrap">
+
+    <button class="back-btn" data-href="index.html">&#8592; Back</button>
+
+    <img
+      src="photo_assetts/Title_Transparent.png"
+      alt="Just Do The Right Thing"
+      class="about-title-img"
+    >
+
+    <div class="about-body">
+      <p>
+        <!-- Add your show description here -->
+        Just Do The Right Thing is a podcast about San Mateo City Council —
+        what's really being said, who's saying it, and whether anyone's
+        actually doing the right thing.
+      </p>
+
+      <!-- Polaroids link to bio pages -->
+      <div class="host-pair">
+        <div class="polaroid" data-href="ella.html" style="width:150px; position:static; transform:rotate(3deg);">
+          <div class="polaroid-photo"></div>
+          <p class="polaroid-label">Ella</p>
+        </div>
+        <div class="polaroid" data-href="brie.html" style="width:150px; position:static; transform:rotate(-2.5deg);">
+          <div class="polaroid-photo"></div>
+          <p class="polaroid-label">Brie</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="transitions.js"></script>
+</body>
+</html>
