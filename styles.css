@@ -217,9 +217,9 @@ html, body {
 /* ── RIGHT PAGE ITEMS ──────────────────────────────── */
 
 .film-item {
-  left: 4%;
-  top: 2%;
-  width: 90%;
+  left: 0%;
+  top: 1%;
+  width: 120%;
 }
 
 .platform-item {
