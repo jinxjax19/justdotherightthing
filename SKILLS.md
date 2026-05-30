@@ -14,7 +14,7 @@ Constraints: Technical requirements (framework, performance, accessibility).
 Differentiation: What makes this UNFORGETTABLE? What's the one thing someone will remember?
 CRITICAL: Choose a clear conceptual direction and execute it with precision. Bold maximalism and refined minimalism both work - the key is intentionality, not intensity.
 
-Then implement working code (HTML/CSS/JS, Svelte, Vue, etc.) that is:
+Then implement working code (HTML/CSS/JS.) that is:
 
 Production-grade and functional
 Visually striking and memorable
