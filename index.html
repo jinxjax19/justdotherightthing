@@ -5,123 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Just Do The Right Thing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- TV static transition overlay -->
-  <div id="tv-overlay" class="tv-overlay">
-    <canvas id="static-canvas"></canvas>
-    <div class="scanlines"></div>
+<div class="scene">
+
+  <!-- Notebook background -->
+  <div class="notebook-wrap">
+    <img class="notebook-img" id="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
   </div>
 
-  <!-- ── HERO ─────────────────────────────────────────── -->
-  <section class="hero">
+  <!-- Overlay — JS sizes/positions this to match the rendered notebook image exactly -->
+  <div class="notebook-overlay" id="notebook-overlay">
 
-    <!-- Cork board — fills top portion of viewport -->
-    <div class="board-wrap" id="board">
-      <img
-        class="board-img"
-        src="photo_assetts/ChatGPT%20Image%20May%2011%2C%202026%2C%2008_46_21%20PM.png"
-        alt="Cork board"
-      >
+    <!-- Left page container (overflow:hidden — nothing escapes) -->
+    <div class="nb-page nb-page-left">
 
-      <!-- Title — top left, metal pin -->
-      <div class="title-pin pin" data-depth="0.4">
+      <div class="nb-item title-item" data-href="#">
         <img src="photo_assetts/Title_Transparent.png" alt="Just Do The Right Thing">
       </div>
 
-      <!-- About — just below title, metal pin -->
-      <div class="about-pin pin" data-href="about.html" data-depth="0.75">
-        <img src="photo_assetts/About.png" alt="About">
+      <div class="nb-item stars-item">
+        <img src="photo_assetts/Star_Sticker.png" alt="">
       </div>
 
-      <!-- Ella polaroid — top right, metal pin -->
-      <div class="polaroid ella-pos" data-href="ella.html" data-depth="0.9" data-rot="-3">
-        <div class="polaroid-photo ella-photo"></div>
-        <p class="polaroid-label">Ella</p>
+      <div class="nb-item ella-polaroid nb-polaroid" data-href="#">
+        <div class="polaroid-photo"><span class="no-asset-label">no asset</span></div>
+        <p class="polaroid-name">Ella</p>
       </div>
 
-      <!-- Brie polaroid — top right, metal pin -->
-      <div class="polaroid brie-pos" data-href="brie.html" data-depth="0.9" data-rot="4">
-        <div class="polaroid-photo brie-photo"></div>
-        <p class="polaroid-label">Brie</p>
+      <div class="nb-item brie-polaroid nb-polaroid" data-href="#">
+        <div class="polaroid-photo"><span class="no-asset-label">no asset</span></div>
+        <p class="polaroid-name">Brianna</p>
       </div>
 
-      <!-- Radio — centered, sits at board/desk boundary -->
-      <div class="radio-pin pin" data-depth="0.5">
-        <img src="photo_assetts/Radio_Transparent.png" alt="Radio">
-        <p class="station-hint">select a station near you to tune in</p>
-      </div>
-    </div>
-
-    <!-- Desk — fills bottom portion of viewport, legs may crop -->
-    <div class="desk-strip"></div>
-
-  </section>
-
-  <!-- ── EPISODES ─────────────────────────────────────── -->
-  <section class="episodes reveal-section" id="episodes">
-    <div class="container">
-      <h2 class="episode-title">Episode 1: Big Bike and the Humbolt Bike Lane</h2>
-
-      <div class="episode-layout">
-        <div class="filmstrip">
-          <div class="film-frame"></div>
-        </div>
-        <div class="stream-icons">
-          <a class="stream-icon youtube" href="#" data-href="#" title="Watch on YouTube">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5a3 3 0 0 0-2.1 2.1C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
-            </svg>
-          </a>
-          <a class="stream-icon spotify" href="#" data-href="#" title="Listen on Spotify">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-            </svg>
-          </a>
-          <a class="stream-icon apple" href="#" data-href="#" title="Listen on Apple Podcasts">
-            <svg viewBox="0 0 50 50" fill="currentColor" aria-hidden="true">
-              <path d="M25 2C12.3 2 2 12.3 2 25s10.3 23 23 23 23-10.3 23-23S37.7 2 25 2zm0 8c3.9 0 7 3.1 7 7s-3.1 7-7 7-7-3.1-7-7 3.1-7 7-7zm0 32c-5.2 0-9.8-2.6-12.6-6.6.4-4.2 4-7.4 8.3-7.4h8.6c4.3 0 7.9 3.2 8.3 7.4C34.8 39.4 30.2 42 25 42z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── VIBE CHECK + BY THE NUMBERS ──────────────────── -->
-  <section class="data-wall reveal-section" id="data">
-    <div class="wire"></div>
-    <div class="receipts-row">
-
-      <div class="receipt-hang">
-        <div class="receipt-img-wrap">
-          <img src="photo_assetts/VibeCheckwClip.png" alt="Vibe Check" class="receipt-image">
-          <div class="receipt-overlay">
-            <table class="overlay-table">
-              <tbody id="vibe-check-body"></tbody>
-            </table>
-          </div>
-        </div>
+      <div class="nb-item stanford-item" data-href="#">
+        <img src="photo_assetts/Stanford.png" alt="Stanford">
       </div>
 
-      <div class="receipt-hang">
-        <div class="receipt-img-wrap">
-          <img src="photo_assetts/ByNumbersw:Clip.png" alt="By The Numbers" class="receipt-image">
-          <div class="receipt-overlay">
-            <table class="overlay-table">
-              <tbody id="by-numbers-body"></tbody>
-            </table>
-          </div>
-        </div>
+      <div class="nb-item about-item" data-href="#">About</div>
+
+      <div class="nb-item radio-item" data-href="#">
+        <img src="photo_assetts/Radio_Sticker.png" alt="Tune in">
+        <p class="tune-in">Tune in!</p>
       </div>
 
-    </div>
-  </section>
+    </div><!-- /.nb-page-left -->
 
-  <script src="transitions.js"></script>
-  <script src="script.js"></script>
+    <!-- Right page container -->
+    <div class="nb-page nb-page-right">
+
+      <div class="nb-item film-item" data-href="#">
+        <img src="photo_assetts/Film_Frame.png" alt="Episode">
+      </div>
+
+      <div class="nb-item platform-item" data-href="#">
+        <img src="photo_assetts/Platform_Icon.png" alt="Listen">
+      </div>
+
+      <div class="nb-item vibecheck-item" data-href="#">
+        <img src="photo_assetts/VibeCheck_NoClip.png" alt="Vibe Check">
+      </div>
+
+      <div class="nb-item bynumbers-item" data-href="#">
+        <span class="no-asset-label">no asset</span>
+      </div>
+
+    </div><!-- /.nb-page-right -->
+
+  </div><!-- /.notebook-overlay -->
+
+  <!-- Flip leaf -->
+  <div class="flip-leaf" id="flip-leaf" aria-hidden="true">
+    <div class="flip-face flip-front"></div>
+    <div class="flip-face flip-back"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flip-nav" id="flip-nav">
+    <button class="nav-btn" id="btn-prev" disabled>&#8592;</button>
+    <span class="page-num" id="page-num">1</span>
+    <button class="nav-btn" id="btn-next">&#8594;</button>
+  </nav>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

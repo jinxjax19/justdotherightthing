@@ -1,479 +1,367 @@
-/* ── RESET ─────────────────────────────────────── */
+/* ── RESET ─────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── TOKENS ────────────────────────────────────── */
-:root {
-  --cream:  #FAF0D7;
-  --blue:   #2433C5;
-  --red:    #8B2218;
-  --gold:   #C8900A;
-  --mint:   #C8EDE4;
-  --paper:  #F4EDD8;
-  --dark:   #1a1a1a;
+html, body {
+  height: 100%;
+  overflow: hidden;
 }
 
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--cream);
-  font-family: 'DM Sans', sans-serif;
-  color: var(--dark);
-  overflow-x: hidden;
+/* ── SCENE ─────────────────────────────────────────── */
+.scene {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('photo_assetts/blanket.jpeg') center center / cover no-repeat;
 }
 
-/* ── TV OVERLAY ────────────────────────────────── */
-.tv-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-}
-.tv-overlay canvas {
-  position: absolute;
-  inset: 0;
+/* ── NOTEBOOK ──────────────────────────────────────── */
+.notebook-wrap {
   width: 100%;
   height: 100%;
-  display: block;
-}
-.scanlines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0px, transparent 3px,
-    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
-  );
-  pointer-events: none;
 }
 
-/* ── HERO — board + desk fill exactly 100vh ────── */
-.hero {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── BOARD ─────────────────────────────────────── */
-.board-wrap {
-  position: relative;
-  width: 100%;
-  flex: 0 0 66vh;     /* board takes ~2/3 of viewport */
-  z-index: 2;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  /* Matches the corkboard frame colour so transparent PNG corners blend — no gap at top */
-  background-color: #7AADAA;
-}
-
-.board-img {
+.notebook-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
   display: block;
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,0.35))
+          drop-shadow(0 4px 12px rgba(0,0,0,0.2));
 }
 
-/* ── METAL PUSHPIN — shared style ──────────────── */
-.title-pin::before,
-.about-pin::before,
-.polaroid::before {
-  content: '';
+/* ── OVERLAY — JS sets left/top/width/height ───────── */
+.notebook-overlay {
   position: absolute;
-  width: clamp(11px, 1.3vmin, 17px);
-  height: clamp(11px, 1.3vmin, 17px);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 36% 30%,
-    #f6f6f6 0%,
-    #d2d2d2 22%,
-    #a2a2a2 50%,
-    #6c6c6c 76%,
-    #484848 100%
-  );
-  box-shadow:
-    0 3px 6px rgba(0,0,0,0.55),
-    inset 0 1px 0 rgba(255,255,255,0.55);
-  z-index: 15;
-  top: -7px;
-  left: 50%;
-  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 10;
 }
 
-/* Title pin anchors to top-left of the banner */
-.title-pin::before {
-  left: 9%;
+/* ── PAGE CONTAINERS ───────────────────────────────────
+   Percentages derived from pixel measurements of Notebook.png (1264×841):
+     Left page:  x 10.6%–48.0%, y 4.9%–76.9%
+     Right page: x 52.3%–88.6%, y 4.9%–76.9%
+   ────────────────────────────────────────────────── */
+.nb-page {
+  position: absolute;
+  top: 4.9%;
+  height: 72%;        /* 76.9% - 4.9% */
+  overflow: hidden;   /* hard boundary — nothing escapes the page */
+  pointer-events: none;
+}
+
+.nb-page-left {
+  left: 10.6%;
+  width: 37.4%;       /* 48.0% - 10.6% */
+}
+
+.nb-page-right {
+  left: 52.3%;
+  width: 36.3%;       /* 88.6% - 52.3% */
+}
+
+/* ── ITEM BASE ─────────────────────────────────────── */
+.nb-item {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
+  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.22));
+}
+
+.nb-item img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.nb-item:hover {
+  transform: translateY(-4px) scale(1.04);
+  filter: drop-shadow(3px 8px 18px rgba(0,0,0,0.32));
+  z-index: 20;
+}
+
+.nb-item:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+/* Non-interactive items */
+.stars-item {
+  cursor: default;
+  pointer-events: none;
+}
+.stars-item:hover {
   transform: none;
+  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.22));
 }
 
-/* ── PIN BASE ──────────────────────────────────── */
-.pin, .polaroid {
-  --px: 0px;
-  --py: 0px;
-  position: absolute;
-  z-index: 3;
-  will-change: transform;
+/* ── LEFT PAGE ITEMS ───────────────────────────────── */
+
+.title-item {
+  left: 2%;
+  top: 3%;
+  width: 88%;
+  transform: rotate(-1deg);
+}
+.title-item:hover {
+  transform: rotate(-1deg) translateY(-4px) scale(1.04);
 }
 
-/* ── TITLE PIN ─────────────────────────────────── */
-.title-pin {
-  top: 5%;
+.stars-item {
+  right: 1%;
+  top: 2%;
+  width: 28%;
+}
+
+.ella-polaroid {
+  left: 2%;
+  top: 26%;
+  width: 44%;
+  transform: rotate(-2deg);
+}
+.ella-polaroid:hover {
+  transform: rotate(-2deg) translateY(-5px) scale(1.05);
+}
+
+.brie-polaroid {
+  left: 50%;
+  top: 22%;
+  width: 44%;
+  transform: rotate(2.5deg);
+}
+.brie-polaroid:hover {
+  transform: rotate(2.5deg) translateY(-5px) scale(1.05);
+}
+
+.stanford-item {
+  left: 2%;
+  top: 60%;
+  width: 44%;
+  transform: rotate(-1deg);
+}
+.stanford-item:hover {
+  transform: rotate(-1deg) translateY(-4px) scale(1.04);
+}
+
+.about-item {
   left: 3%;
-  width: 40%;
-  transform: rotate(-1.5deg) translate(var(--px), var(--py));
-  filter: drop-shadow(2px 5px 12px rgba(0,0,0,0.5));
-  transition: filter 0.25s ease;
+  top: 82%;
+  font-family: 'Caveat', cursive;
+  font-size: 2.8vw;
+  font-weight: 600;
+  color: #1a4fa8;
+  letter-spacing: 0.02em;
+  filter: none;
+  border-bottom: 0.2vw solid #1a4fa8;
+  line-height: 1;
+  padding-bottom: 0.2%;
 }
-.title-pin img { width: 100%; display: block; }
-.title-pin:hover {
-  filter: drop-shadow(3px 8px 20px rgba(0,0,0,0.65));
-}
-
-/* ── ABOUT PIN ─────────────────────────────────── */
-.about-pin {
-  top: 40%;
-  left: 3%;
-  width: 16%;
-  cursor: pointer;
-  transform: rotate(0.5deg) translate(var(--px), var(--py));
-  filter: drop-shadow(1px 3px 8px rgba(0,0,0,0.3));
-  transition: filter 0.25s ease, transform 0.2s ease;
-}
-.about-pin img { width: 100%; display: block; }
-.about-pin:hover {
-  filter: drop-shadow(2px 5px 14px rgba(0,0,0,0.45));
-  transform: rotate(2deg) scale(1.06) translate(var(--px), var(--py));
+.about-item:hover {
+  transform: translateY(-3px);
+  filter: none;
+  color: #0d3282;
 }
 
-/* ── POLAROIDS ─────────────────────────────────── */
-.polaroid {
-  background: white;
-  padding: 5px 5px 22px;
-  box-shadow:
-    3px 5px 14px rgba(0,0,0,0.28),
-    0 1px 3px rgba(0,0,0,0.12);
-  cursor: pointer;
-  width: 15%;
-  transform-origin: top center;
-  transition: box-shadow 0.2s ease;
+.radio-item {
+  left: 50%;
+  top: 60%;
+  width: 46%;
+  text-align: center;
 }
 
-.ella-pos {
-  top: 5%;
-  right: 19%;
-  transform: rotate(-3deg) translate(var(--px), var(--py));
+.tune-in {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4vw;
+  color: #333;
+  margin-top: 2%;
+  text-align: center;
 }
-.brie-pos {
-  top: 5%;
-  right: 2.5%;
-  transform: rotate(4deg) translate(var(--px), var(--py));
+
+/* ── POLAROID FRAMES ───────────────────────────────── */
+.nb-polaroid {
+  background: #fff;
+  padding: 3% 3% 13%;
+  filter: none;
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.22);
+}
+
+.nb-polaroid:hover {
+  box-shadow: 4px 10px 22px rgba(0,0,0,0.32);
+  filter: none;
 }
 
 .polaroid-photo {
   width: 100%;
   aspect-ratio: 1;
-  background: linear-gradient(135deg, #DDD5C5 0%, #C9BCA8 50%, #D5CAB6 100%);
-}
-.ella-photo {
-  background: linear-gradient(135deg, #D6CFC4 0%, #BFB5A4 100%);
-}
-.brie-photo {
-  background: linear-gradient(135deg, #D2CBBC 0%, #C4BAA8 100%);
-}
-.polaroid-label {
-  text-align: center;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.55em;
-  font-style: italic;
-  color: #666;
-  margin-top: 4px;
-  letter-spacing: 0.04em;
-}
-
-/* ── RADIO PIN — hangs over desk ───────────────── */
-.radio-pin {
-  position: absolute;
-  /* bottom: negative so it crosses the board/desk boundary */
-  bottom: -7%;
-  left: 50%;
-  width: 34%;
-  transform: translateX(-50%) translate(var(--px), var(--py));
-  text-align: center;
-  filter: drop-shadow(3px 10px 22px rgba(0,0,0,0.65));
-  transition: filter 0.25s ease;
-  z-index: 10;
-}
-.radio-pin img {
-  width: 100%;
-  display: block;
-  cursor: pointer;
-}
-.radio-pin:hover {
-  filter: drop-shadow(4px 12px 28px rgba(0,0,0,0.78));
-}
-.station-hint {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.55em;
-  font-style: italic;
-  color: rgba(40, 40, 40, 0.7);
-  text-shadow: 0 1px 3px rgba(255,255,255,0.5);
-  margin-top: 5px;
-  letter-spacing: 0.03em;
-}
-
-/* ── DESK ──────────────────────────────────────── */
-.desk-strip {
-  width: 100%;
-  flex: 1;           /* fills remaining ~34vh */
-  position: relative;
-  z-index: 1;
-  /* background-position 55% from top reveals the desk surface and upper legs */
-  background-image: url('photo_assetts/HomeDesk.png');
-  background-size: 119% auto;
-  background-position: center 55%;
-  background-color: var(--cream);
-}
-
-/* ── SCROLL REVEAL ─────────────────────────────── */
-.reveal-section {
-  opacity: 0;
-  transform: translateY(36px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
-}
-.reveal-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── EPISODES ──────────────────────────────────── */
-.episodes {
-  padding: 4rem 2rem 3rem;
-}
-.episodes .container {
-  max-width: 760px;
-  margin: 0 auto;
-}
-.episode-title {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 400;
-  font-style: italic;
-  color: #333;
-  margin-bottom: 1.4rem;
-}
-.episode-layout {
+  background: #ddd8d0;
   display: flex;
-  gap: 1.5rem;
   align-items: center;
+  justify-content: center;
 }
 
-/* Filmstrip */
-.filmstrip {
-  flex: 1;
-  position: relative;
-  background: #111;
-  padding: 10px 26px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+.polaroid-name {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.6vw;
+  color: #555;
+  margin-top: 3%;
+  line-height: 1;
 }
-.filmstrip::before, .filmstrip::after {
+
+/* ── RIGHT PAGE ITEMS ──────────────────────────────── */
+
+.film-item {
+  left: 3%;
+  top: 3%;
+  width: 92%;
+}
+
+.platform-item {
+  left: 8%;
+  top: 45%;
+  width: 82%;
+}
+
+.vibecheck-item {
+  left: 3%;
+  top: 58%;
+  width: 44%;
+}
+
+.bynumbers-item {
+  left: 52%;
+  top: 58%;
+  width: 44%;
+  aspect-ratio: 0.65;
+  background: #f5f0e6;
+  border: 1px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.18);
+  filter: none;
+}
+.bynumbers-item:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 3px 8px 18px rgba(0,0,0,0.28);
+  filter: none;
+}
+
+/* ── NO-ASSET LABELS ───────────────────────────────── */
+.no-asset-label {
+  font-family: monospace;
+  font-size: 1.1vw;
+  color: rgba(0,0,0,0.28);
+  border: 1px dashed rgba(0,0,0,0.18);
+  padding: 6% 10%;
+  border-radius: 2px;
+  white-space: nowrap;
+  display: block;
+  text-align: center;
+}
+
+/* ── FLIP LEAF ─────────────────────────────────────── */
+.flip-leaf {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 50;
+  transform-style: preserve-3d;
+}
+
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: #fff;
+}
+
+.flip-front::after {
   content: '';
   position: absolute;
-  top: 0; bottom: 0;
-  width: 22px;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    #111 0, #111 4px,
-    #E8D5A3 4px, #E8D5A3 13px,
-    #111 13px, #111 16px
-  );
-}
-.filmstrip::before { left: 0; }
-.filmstrip::after  { right: 0; }
-.film-frame {
-  aspect-ratio: 16 / 9;
-  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-}
-
-/* Streaming icons */
-.stream-icons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  flex-shrink: 0;
-}
-.stream-icon {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  color: #fff;
-  text-decoration: none;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-}
-.stream-icon:hover {
-  transform: scale(1.15) translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-  filter: brightness(1.1);
-}
-.stream-icon svg { width: 26px; height: 26px; }
-.stream-icon.youtube { background: #FF0000; }
-.stream-icon.spotify { background: #1DB954; }
-.stream-icon.apple   { background: #8B5CF6; }
-
-/* ── DATA WALL ─────────────────────────────────── */
-.data-wall {
-  padding: 1rem 2rem 6rem;
-  position: relative;
-}
-.wire {
-  position: absolute;
-  top: 18px;
-  left: 4%; right: 4%;
-  height: 3px;
-  background: linear-gradient(to right, transparent, #999 4%, #777 50%, #999 96%, transparent);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  border-radius: 2px;
-}
-.receipts-row {
-  display: flex;
-  gap: 4rem;
-  justify-content: center;
-  padding-top: 10px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
-.receipt-hang {
-  transform-origin: top center;
-  transition: transform 0.35s ease;
-}
-.receipt-hang:hover {
-  transform: rotate(2deg) scale(1.02);
-}
-.receipt-img-wrap {
-  position: relative;
-  display: inline-block;
-}
-.receipt-image {
-  width: 260px;
-  max-width: 42vw;
-  display: block;
-  filter: drop-shadow(2px 6px 16px rgba(0,0,0,0.24));
-}
-.receipt-overlay {
-  position: absolute;
-  top: 36%;
-  left: 6%;
-  right: 6%;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.12) 0%, transparent 25%);
   pointer-events: none;
-  font-family: 'Courier Prime', monospace;
-  color: var(--blue);
-}
-.overlay-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.44rem;
-  color: var(--blue);
-}
-.overlay-table td {
-  padding: 0 2px;
-  height: 16px;
-  overflow: hidden;
-  vertical-align: top;
-  white-space: nowrap;
 }
 
-/* ── INNER PAGE SHELL ──────────────────────────── */
-.page-wrap {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 3rem 2rem 5rem;
-  min-height: 100vh;
+.flip-back {
+  transform: rotateY(180deg);
+  background: #f8f8f8;
 }
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: none;
-  border: none;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--red);
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 2.5rem;
-  letter-spacing: 0.02em;
-  transition: gap 0.15s;
-}
-.back-btn:hover { gap: 0.65rem; }
 
-/* ── ABOUT PAGE ────────────────────────────────── */
-.about-title-img {
-  max-width: 260px;
-  display: block;
-  margin: 0 auto 1.5rem;
-  transform: rotate(-1.5deg);
-  filter: drop-shadow(1px 3px 6px rgba(0,0,0,0.2));
-}
-.about-body {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: #444;
-  max-width: 540px;
-  margin: 0 auto;
-}
-.host-pair {
+/* ── NAV ────────────────────────────────────────────── */
+.flip-nav {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 2.5rem;
+  align-items: center;
+  gap: 1rem;
+  z-index: 100;
+}
+
+.nav-btn {
+  background: rgba(255,255,255,0.72);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  margin-top: 3rem;
-  flex-wrap: wrap;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+  transition: background 0.18s, transform 0.18s;
 }
 
-/* ── BIO PAGE ──────────────────────────────────── */
-.bio-center { text-align: center; }
-.bio-polaroid-lg {
-  width: 210px;
-  background: white;
-  padding: 8px 8px 38px;
-  box-shadow: 3px 5px 16px rgba(0,0,0,0.2);
-  margin: 0 auto 2rem;
-  transform: rotate(-1deg);
+.nav-btn:not(:disabled):hover {
+  background: rgba(255,255,255,0.92);
+  transform: scale(1.08);
 }
-.bio-polaroid-lg .frame {
-  width: 100%;
-  aspect-ratio: 1;
-  background: linear-gradient(135deg, #DDD5C5 0%, #C9BCA8 100%);
+
+.nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
 }
-.bio-polaroid-lg .name {
+
+.page-num {
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.85);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  min-width: 40px;
   text-align: center;
-  font-style: italic;
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 7px;
-}
-.bio-text {
-  line-height: 1.8;
-  color: #444;
-  max-width: 480px;
-  margin: 0 auto;
-  font-size: 1rem;
+  letter-spacing: 0.1em;
 }
 
-/* ── RESPONSIVE ────────────────────────────────── */
-@media (max-width: 640px) {
-  .polaroid { width: 20%; }
-  .radio-pin { width: 50%; }
-  .receipt-image { width: 220px; }
-  .receipts-row { gap: 1.5rem; }
-  .episode-layout { gap: 0.75rem; }
-  .stream-icon { width: 42px; height: 42px; }
-}
-@media (max-width: 480px) {
-  .episode-layout { flex-direction: column; }
-  .stream-icons { flex-direction: row; }
-  .about-pin { width: 18%; }
+/* ── MOBILE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .notebook-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .notebook-img {
+    position: absolute;
+    height: 100vh;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    left: 50%;
+    top: 50%;
+    transform: translate(-71%, -50%);
+    object-fit: unset;
+  }
+
+  .notebook-overlay { display: none; }
 }
