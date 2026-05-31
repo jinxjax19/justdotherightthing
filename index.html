@@ -7,6 +7,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    @font-face {
+      font-family: 'TheGirlNextDoor';
+      src: url('photo_assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
+    }
+
+    .home-episodes-header {
+      position: absolute;
+      top: -2%;
+      left: 10%;
+      width: 70%;
+      pointer-events: none;
+    }
+    .home-episodes-header img {
+      width: 100%;
+      display: block;
+    }
+
+.home-tagline {
+      position: absolute;
+      top: 18%;
+      left: 12%;
+      width: 55%;
+      font-family: 'TheGirlNextDoor', cursive;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.7;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,8 +52,10 @@
       <div class="nb-page nb-page-left">
 
         <div class="nb-item title-item" id="title-item" data-href="#">
-          <img src="photo_assetts/Title_Transparent.png" alt="Just Do The Right Thing">
+          <img src="photo_assetts/Title_New.png" alt="Just Do The Right Thing">
         </div>
+
+        <p class="home-tagline">We're here to fill you in on the latest city hall drama. From one bestie to another.</p>
 
         <div class="nb-item stars-item">
           <img src="photo_assetts/Star_Sticker.png" alt="">
@@ -37,6 +69,10 @@
           <img src="photo_assetts/Brie.PNG" alt="Brianna">
         </div>
 
+        <div class="nb-item stanford-item" data-href="about.html">
+          <img src="photo_assetts/Stanford2.PNG" alt="Stanford">
+        </div>
+
         <div class="nb-item radio-item" data-href="episode1.html">
           <img src="photo_assetts/Radio_Sticker.png" alt="Tune in">
           <p class="tune-in">Tune in!</p>
@@ -47,20 +83,8 @@
       <!-- Right page container -->
       <div class="nb-page nb-page-right">
 
-        <div class="nb-item film-item" data-href="#">
-          <img src="photo_assetts/Film_Frame.png" alt="Episode">
-        </div>
-
-        <div class="nb-item platform-spotify" data-href="#">
-          <img src="photo_assetts/Spotify.png" alt="Spotify">
-        </div>
-
-        <div class="nb-item platform-youtube" data-href="#">
-          <img src="photo_assetts/YouTube.png" alt="YouTube">
-        </div>
-
-        <div class="nb-item platform-itunes" data-href="#">
-          <img src="photo_assetts/ITunes.png" alt="iTunes">
+        <div class="home-episodes-header">
+          <img src="photo_assetts/Episodes.png" alt="Episodes">
         </div>
 
       </div><!-- /.nb-page-right -->
@@ -68,6 +92,8 @@
     </div><!-- /.notebook-overlay -->
   </div><!-- /.notebook-wrap -->
 
+  <!-- Tea sits on the wood, outside the notebook -->
+  <a href="index.html"><img src="photo_assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
 
 </div>
 

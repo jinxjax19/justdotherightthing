@@ -15,7 +15,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('photo_assetts/blanket.jpeg') center center / cover no-repeat;
+  background: url('photo_assetts/Wood.jpeg') center center / cover no-repeat;
 }
 
 /* ── BLANKET ITEMS ─────────────────────────────────── */
@@ -113,7 +113,7 @@ html, body {
 /* ── LEFT PAGE ITEMS ───────────────────────────────── */
 
 .title-item {
-  left: 5%;
+  left: 10%;
   top: -2%;
   width: 60%;
   transform: rotate(-1deg);
@@ -124,7 +124,7 @@ html, body {
 
 .ella-polaroid {
   left: 15%;
-  top: 22%;
+  top: 35%;
   width: 38%;
   transform: rotate(3deg);   /* leans right, toward Brie */
 }
@@ -134,7 +134,7 @@ html, body {
 
 .brie-polaroid {
   left: 42%;
-  top: 25%;
+  top: 35%;
   width: 40%;
   transform: rotate(-3deg);  /* leans left, toward Ella */
   z-index: 2;
@@ -144,15 +144,15 @@ html, body {
 }
 
 .stars-item {
-  left: 43%;
-  top: 9%;
+  left: 50%;
+  top: 5%;
   width: 55%;
   z-index: 1;
 }
 
 .stanford-item {
-  left: 2%;
-  top: 60%;
+  left: 4%;
+  top: 65%;
   width: 44%;
   transform: rotate(-1deg);
 }
@@ -161,10 +161,10 @@ html, body {
 }
 
 .about-item {
-  left: 3%;
+  left: 10%;
   top: 82%;
-  font-family: 'Caveat', cursive;
-  font-size: 2.8vw;
+  font-family: 'Girl Next Door', cursive;
+  font-size: 3.6vw;
   font-weight: 600;
   color: #1a4fa8;
   letter-spacing: 0.02em;
@@ -187,7 +187,7 @@ html, body {
 }
 
 .tune-in {
-  font-family: 'Caveat', cursive;
+  font-family: 'TheGirlNextDoor', cursive;
   font-size: 1.4vw;
   color: #333;
   margin-top: 2%;
@@ -287,6 +287,16 @@ html, body {
 }
 
 
+/* ── TEA ───────────────────────────────────────────── */
+.tea-item {
+  position: absolute;
+  bottom: 4%;
+  right: 78%;
+  width: 28vw;
+  cursor: pointer;
+  z-index: 5;
+}
+
 /* ── SMALL SCREEN — single page view ──────────────── */
 @media (max-width: 768px) {
   .notebook-wrap {
@@ -306,7 +316,7 @@ html, body {
     max-height: none;
     left: 50%;
     top: 50%;
-    transform: translate(-71%, -50%);
+    transform: translate(-29%, -50%);
   }
 
   .notebook-overlay { display: none; }

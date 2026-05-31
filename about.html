@@ -5,49 +5,105 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Just Do The Right Thing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Load the Girl Next Door font from local assets */
+    @font-face {
+      font-family: 'TheGirlNextDoor';
+      src: url('photo_assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
+    }
+
+    /* Text blocks on each page */
+    .about-left-text,
+    .about-right-text {
+      position: absolute;
+      top: 4%;
+      left: 4%;
+      width: 92%;
+      font-family: 'TheGirlNextDoor', cursive;
+      font-size: 0.85vw;
+      color: #333;
+      line-height: 1.5;
+      pointer-events: none;
+    }
+
+    /* Left page text shifted right to clear the blue ruled edge */
+    .about-left-text {
+      left: 12%;
+      width: 84%;
+    }
+
+    /* Paragraph spacing */
+    .about-left-text p,
+    .about-right-text p {
+      margin-bottom: 1em;
+    }
+
+    /* Section headings */
+    .about-heading {
+      display: block;
+      font-family: 'TheGirlNextDoor', cursive;
+      font-size: 1.1vw;
+      color: #1a4fa8;
+      margin-top: 0.6em;
+      margin-bottom: 0.2em;
+    }
+    .about-heading:first-child { margin-top: 0; }
+
+    /* Mobile: font sizes scale up since vw is smaller relative to text */
+    @media (max-width: 768px) {
+      .about-left-text,
+      .about-right-text { font-size: 3.2vw; }
+      .about-heading { font-size: 4.2vw; }
+    }
+  </style>
 </head>
 <body>
 
-  <div id="tv-overlay" class="tv-overlay">
-    <canvas id="static-canvas"></canvas>
-    <div class="scanlines"></div>
-  </div>
+<div class="scene">
 
-  <div class="page-wrap">
+  <div class="notebook-wrap">
+    <img class="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
 
-    <button class="back-btn" data-href="index.html">&#8592; Back</button>
+    <div class="notebook-overlay">
 
-    <img
-      src="photo_assetts/Title_Transparent.png"
-      alt="Just Do The Right Thing"
-      class="about-title-img"
-    >
+      <!-- Left page — problem + solution -->
+      <div class="nb-page nb-page-left">
 
-    <div class="about-body">
-      <p>
-        <!-- Add your show description here -->
-        Just Do The Right Thing is a podcast about San Mateo City Council —
-        what's really being said, who's saying it, and whether anyone's
-        actually doing the right thing.
-      </p>
+        <div class="about-left-text">
+          <p>Just because local news is important, does not mean it needs to be boring!</p>
 
-      <!-- Polaroids link to bio pages -->
-      <div class="host-pair">
-        <div class="polaroid" data-href="ella.html" style="width:150px; position:static; transform:rotate(3deg);">
-          <div class="polaroid-photo"></div>
-          <p class="polaroid-label">Ella</p>
+          <span class="about-heading">Problem</span>
+          <p>City hall meetings are important public forums, but most papers no longer have the resources to send reporters in person — causing media to under-report on these vital local institutions. Even when they can send reporters, they often write up a dry, 200-word summary of the meeting easily duplicated by AI.</p>
+
+          <span class="about-heading">Solution</span>
+          <p>Our master's thesis tests one possible solution to this painful paradigm and answers one question we kept coming back to throughout our nine months at Stanford: what would it look like to make journalism as human as possible in the age of A.I.?</p>
+          <p>To us, this means bringing journalism back to its storytelling roots. If we want people to engage with local journalism, let's make local journalism incredibly fun to engage with. Gen-Z audiences are interested in audio-visual content, they get news on social media, and they want more personality and transparency.</p>
         </div>
-        <div class="polaroid" data-href="brie.html" style="width:150px; position:static; transform:rotate(-2.5deg);">
-          <div class="polaroid-photo"></div>
-          <p class="polaroid-label">Brie</p>
+
+      </div><!-- /.nb-page-left -->
+
+      <!-- Right page — the deets -->
+      <div class="nb-page nb-page-right">
+
+        <div class="about-right-text">
+          <span class="about-heading">Deets</span>
+          <p>Modeled on our favorite road trip podcasts (Crime Junkies and Normal Gossip) "Just Do The Right Thing" tells you about your city council meetings the way that your funniest friend would.</p>
+          <p>We also know that journalism needs to be more than fun. It needs to be accurate. It needs to help people get the information they need to be effective members of society.</p>
+          <p>In come the A.I. tools — today we have the ability to link primary source materials to help interested readers explore the "receipts" on their own. We built this website to help listeners quickly fact-check our work and get more details for trivia nights and friendly debates.</p>
+          <p>We believe that A.I. should enable local newsrooms to invest resources in person-to-person reporting and human-centered storytelling.</p>
         </div>
-      </div>
-    </div>
 
-  </div>
+      </div><!-- /.nb-page-right -->
 
-  <script src="transitions.js"></script>
+    </div><!-- /.notebook-overlay -->
+  </div><!-- /.notebook-wrap -->
+
+  <a href="index.html"><img src="photo_assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

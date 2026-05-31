@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     /* ── EPISODE 1 PAGE-SPECIFIC STYLES ── */
+
+    @font-face {
+      font-family: 'TheGirlNextDoor';
+      src: url('photo_assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
+    }
     .ep1-film {
       left: 56%;
       top: 33%;
@@ -24,10 +29,26 @@
     .ep1-itunes {
       top: 42%;
       width: 15%;
+      z-index: 10;
+      transition: transform 0.16s ease, filter 0.16s ease;
     }
     .ep1-spotify { left: 26%; }
     .ep1-youtube { left: 42%; }
     .ep1-itunes  { left: 58%; }
+
+    /* Explicit hover/active animation for platform icons */
+    .ep1-spotify:hover,
+    .ep1-youtube:hover,
+    .ep1-itunes:hover {
+      transform: translateY(-4px) scale(1.08);
+      filter: drop-shadow(3px 8px 18px rgba(0,0,0,0.35));
+      z-index: 20;
+    }
+    .ep1-spotify:active,
+    .ep1-youtube:active,
+    .ep1-itunes:active {
+      transform: translateY(-1px) scale(1.02);
+    }
 
     /* 16:9 video embed — padding-top trick maintains aspect ratio */
     .ep1-video-wrap {
@@ -48,20 +69,72 @@
       height: 100%;
     }
 
-    .ep1-vibecheck {
-      left: 50%;
-      top: 70%;
-      transform: translate(-50%, -50%);
-      width: 110%;
-    }
-    .ep1-back-star {
-      top: 2%;
-      right: 2%;
-      width: 18%;
+    /* ── VIBE CHECK TABLE ── */
+    .ep1-vibecheck-wrap {
+      position: absolute;
+      top: 42%;
+      left: 5%;
+      width: 90%;
+      padding: 0 1%;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      opacity: 0.72;          /* looks written on the paper */
+      pointer-events: none;
     }
 
-    .ep1-vibecheck:hover {
-      transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
+    /* Three info boxes — touch each other, no gap */
+    .vibecheck-header-boxes {
+      display: flex;
+      border: 1.5px solid #1a3a8f;
+      margin-bottom: 0.6%;
+    }
+    .vibecheck-header-boxes span {
+      flex: 1;
+      border-right: 1.5px solid #1a3a8f;  /* internal dividers */
+      color: #1a3a8f;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1vw;
+      text-align: center;
+      padding: 0.5% 1%;
+    }
+    .vibecheck-header-boxes span:last-child {
+      border-right: none;  /* avoid double border on the far edge */
+    }
+
+    /* Main title */
+    .vibecheck-title {
+      font-size: 1vw;
+      text-align: center;
+      margin-bottom: 0.4%;
+      color: #1a3a8f;
+      letter-spacing: 0.02em;
+    }
+
+    /* Table grid — all royal blue */
+    .vibecheck-grid {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1vw;
+      line-height: 1.3;
+      color: #1a3a8f;
+    }
+
+    /* Header row */
+    .vibecheck-grid thead th {
+      border: 1.5px solid #1a3a8f;
+      padding: 0.5% 1%;
+      text-align: center;
+      font-size: 1vw;
+      color: #1a3a8f;
+    }
+
+    /* Data cells */
+    .vibecheck-grid tbody td {
+      border: 1px solid #1a3a8f;
+      padding: 0.5% 1%;
+      vertical-align: top;
+      color: #1a3a8f;
     }
 
   </style>
@@ -83,9 +156,6 @@
           <img src="photo_assetts/Film_Frame.png" alt="Episode 1">
         </div>
 
-        <div class="nb-item ep1-back-star" data-href="index.html">
-          <img src="photo_assetts/Star_Sticker.png" alt="Home">
-        </div>
 
         <div class="nb-item ep1-spotify" data-href="#">
           <img src="photo_assetts/Spotify.png" alt="Spotify">
@@ -105,8 +175,26 @@
       <!-- Right page -->
       <div class="nb-page nb-page-right">
 
-        <div class="nb-item ep1-vibecheck" data-href="#">
-          <img src="photo_assetts/VibeCheck_noback.PNG" alt="Vibe Check">
+        <!-- Vibe Check table — edit data in the script block below -->
+        <div class="ep1-vibecheck-wrap">
+          <!-- Three info boxes — populated from data/ep1_meta.csv -->
+          <div class="vibecheck-header-boxes">
+            <span id="vc-location"></span>
+            <span id="vc-body"></span>
+            <span id="vc-date"></span>
+          </div>
+          <div class="vibecheck-title"><img src="photo_assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
+          <table class="vibecheck-grid">
+            <thead>
+              <tr>
+                <th style="width:22%">Side</th>
+                <th style="width:44%">Key Arguments</th>
+                <th style="width:17%">Live</th>
+                <th style="width:17%">Written</th>
+              </tr>
+            </thead>
+            <tbody id="vibe-check-body"></tbody>
+          </table>
         </div>
 
         <!-- 16:9 responsive video wrapper -->
@@ -125,8 +213,32 @@
     </div><!-- /.notebook-overlay -->
   </div><!-- /.notebook-wrap -->
 
+  <a href="index.html"><img src="photo_assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+
 </div>
 
 <script src="script.js"></script>
+
+<script>
+  /* ── DATA SOURCE ─────────────────────────────────────────────────────────
+     Header boxes → data/ep1_meta.csv     (columns: location, body, date)
+     Table rows   → data/ep1_vibecheck.csv (columns: side, keyarguments, live, written)
+
+     Edit those CSV files to update this section.
+     Both files can be exported directly from separate sheets in Google Sheets.
+  ── */
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const [meta, rows] = await Promise.all([
+        fetchCSV('data/ep1_meta.csv'),
+        fetchCSV('data/ep1_vibecheck.csv')
+      ]);
+      renderVibeCheckMeta(meta);
+      renderVibeCheck(rows);
+    } catch (e) {
+      renderVibeCheck([]);  // show empty table if CSVs aren't available yet
+    }
+  });
+</script>
 </body>
 </html>

@@ -9,6 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ── DATA RENDERERS (preserved for future data layer) ─────────────────────────
+// Fills the three header boxes (location, body, date) from ep1_meta.csv
+function renderVibeCheckMeta(data) {
+  if (!data || !data.length) return;
+  const d = data[0];
+  const loc  = document.getElementById('vc-location');
+  const body = document.getElementById('vc-body');
+  const date = document.getElementById('vc-date');
+  if (loc)  loc.textContent  = d.location || '';
+  if (body) body.textContent = d.body     || '';
+  if (date) date.textContent = d.date     || '';
+}
+
 function renderVibeCheck(data) {
   const tbody = document.getElementById('vibe-check-body');
   if (!tbody) return;
