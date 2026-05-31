@@ -13,7 +13,7 @@
       left: 56%;
       top: 33%;
       transform: translate(-50%, -50%);
-      width: 120%;
+      width: 125%;
     }
     .ep1-film:hover {
       transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
@@ -29,11 +29,30 @@
     .ep1-youtube { left: 42%; }
     .ep1-itunes  { left: 58%; }
 
+    /* 16:9 video embed — padding-top trick maintains aspect ratio */
+    .ep1-video-wrap {
+      position: absolute;
+      top: 3%;
+      left: 7.5%;
+      width: 85%;
+      padding-top: calc(85% * 9 / 16);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
+      pointer-events: auto;
+    }
+    .ep1-video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     .ep1-vibecheck {
       left: 50%;
-      top: 65%;
+      top: 70%;
       transform: translate(-50%, -50%);
-      width: 120%;
+      width: 110%;
     }
     .ep1-back-star {
       top: 2%;
@@ -88,6 +107,17 @@
 
         <div class="nb-item ep1-vibecheck" data-href="#">
           <img src="photo_assetts/VibeCheck_noback.PNG" alt="Vibe Check">
+        </div>
+
+        <!-- 16:9 responsive video wrapper -->
+        <div class="ep1-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/QyymX3AgHL0"
+            title="Episode 1"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
         </div>
 
       </div><!-- /.nb-page-right -->
