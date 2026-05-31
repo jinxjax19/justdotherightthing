@@ -72,16 +72,40 @@ function renderByNumbers(data) {
   });
 }
 
+/* Parse a single CSV line, correctly handling double-quoted fields that may
+   contain commas or escaped quotes ("") */
+function parseCSVLine(line) {
+  const fields = [];
+  let field = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        field += '"'; i++;        /* escaped double-quote inside a quoted field */
+      } else {
+        inQuotes = !inQuotes;     /* toggle quoted-field mode */
+      }
+    } else if (ch === ',' && !inQuotes) {
+      fields.push(field.trim()); /* end of field */
+      field = '';
+    } else {
+      field += ch;
+    }
+  }
+  fields.push(field.trim());     /* last field */
+  return fields;
+}
+
 function parseCSV(text) {
   const lines = text.trim().split('\n');
   if (lines.length < 2) return [];
-  const headers = lines[0].split(',').map(h =>
-    h.trim().replace(/^"|"$/g, '').toLowerCase().replace(/\s+/g, '')
-  );
+  /* Normalise header names: lowercase, strip spaces */
+  const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().replace(/\s+/g, ''));
   return lines.slice(1).map(line => {
-    const vals = line.split(',');
+    const vals = parseCSVLine(line);
     const obj  = {};
-    headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim().replace(/^"|"$/g, ''); });
+    headers.forEach((h, i) => { obj[h] = vals[i] || ''; });
     return obj;
   });
 }

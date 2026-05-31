@@ -222,6 +222,37 @@ html, body {
 }
 
 
+/* ── EPISODE META ROW ─────────────────────────────────
+   Location / governing body / date strip — sits above the
+   video on the right page, visible regardless of active tab.
+   Re-use on every episode page by adding .nb-meta-row HTML
+   directly inside .nb-page-right.
+   ────────────────────────────────────────────────── */
+.nb-meta-row {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  display: flex;
+  border: 0.5px solid #1a3a8f;
+  opacity: 0.72;
+  pointer-events: none;
+  z-index: 5;
+}
+.nb-meta-row span {
+  flex: 1;
+  border-right: 1.5px solid #1a3a8f;
+  color: #1a3a8f;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 1vw;
+  text-align: center;
+  padding: 0.5% 1%;
+}
+.nb-meta-row span:last-child {
+  border-right: none;
+}
+
 /* ── RIGHT PAGE ITEMS ──────────────────────────────── */
 
 .film-item {
