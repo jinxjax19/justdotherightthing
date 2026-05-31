@@ -44,12 +44,21 @@
     .about-heading {
       display: block;
       font-family: 'TheGirlNextDoor', cursive;
-      font-size: 1.1vw;
+      font-size: 1.6vw;
       color: #1a4fa8;
       margin-top: 0.6em;
       margin-bottom: 0.2em;
     }
     .about-heading:first-child { margin-top: 0; }
+
+    .about-intro-heading {
+      display: block;
+      font-family: 'TheGirlNextDoor', cursive;
+      font-size: 1.1vw;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 0.8em;
+    }
 
     /* Mobile: font sizes scale up since vw is smaller relative to text */
     @media (max-width: 768px) {
@@ -72,7 +81,7 @@
       <div class="nb-page nb-page-left">
 
         <div class="about-left-text">
-          <p>Just because local news is important, does not mean it needs to be boring!</p>
+          <p class="about-intro-heading">Just because local news is important, does not mean it needs to be boring!</p>
 
           <span class="about-heading">Problem</span>
           <p>City hall meetings are important public forums, but most papers no longer have the resources to send reporters in person — causing media to under-report on these vital local institutions. Even when they can send reporters, they often write up a dry, 200-word summary of the meeting easily duplicated by AI.</p>

@@ -30,9 +30,9 @@ function renderVibeCheck(data) {
     const tr = document.createElement('tr');
     if (i < data.length) {
       const d = data[i];
-      tr.innerHTML = `<td style="width:22%">${d.side||''}</td><td style="width:44%">${d.keyarguments||''}</td><td style="width:17%">${d.live||''}</td><td style="width:17%">${d.written||''}</td>`;
+      tr.innerHTML = `<td style="width:25%">${d.side||''}</td><td style="width:55%">${d.keyarguments||''}</td><td style="width:20%">${d.live||''}</td>`;
     } else {
-      tr.innerHTML = '<td>&nbsp;</td><td></td><td></td><td></td>';
+      tr.innerHTML = '<td>&nbsp;</td><td></td><td></td>';
     }
     tbody.appendChild(tr);
   }
