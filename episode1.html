@@ -14,6 +14,33 @@
       font-family: 'TheGirlNextDoor';
       src: url('photo_assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
     }
+
+    /* Boogaloo font for episode title */
+    @font-face {
+      font-family: 'Boogaloo';
+      src: url('photo_assetts/Boogaloo/Boogaloo-Regular.ttf') format('truetype');
+    }
+
+    /* Outfit font — used for all CSV-imported table data */
+    @font-face {
+      font-family: 'Outfit';
+      src: url('photo_assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
+    }
+
+    /* Episode title displayed on the left notebook page, above the film strip */
+    .ep1-episode-title {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      text-align: center;
+      font-family: 'Boogaloo', cursive;
+      font-size: 2.2vw;
+      color: #1a3a8f;
+      line-height: 1.3;
+      pointer-events: none;
+    }
     .ep1-film {
       left: 56%;
       top: 33%;
@@ -136,12 +163,156 @@
       color: #1a3a8f;
     }
 
-    /* Data cells */
+    /* Data cells — Outfit for CSV-imported content */
     .vibecheck-grid tbody td {
       border: 1px solid #1a3a8f;
       padding: 0.5% 1%;
       vertical-align: top;
       color: #1a3a8f;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+    }
+
+    /* ── TAB BUTTONS ── */
+    /* Row of three buttons sitting in the gap between the video and the content panels */
+    .ep1-tab-buttons {
+      position: absolute;
+      top: 46%;
+      left: 5%;
+      width: 90%;
+      display: flex;
+      gap: 2%;
+      pointer-events: auto;  /* parent .nb-page has pointer-events:none, re-enable here */
+      z-index: 15;
+    }
+
+    .ep1-tab {
+      flex: 1;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1vw;
+      color: #1a3a8f;
+      border: 1.5px solid #1a3a8f;
+      background: transparent;
+      padding: 1.5% 2%;
+      cursor: pointer;
+      transition: background 0.15s;
+      opacity: 0.82;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ep1-tab:hover {
+      background: rgba(26, 58, 143, 0.1);
+    }
+
+    /* Active tab gets a filled look and underline to signal selection */
+    .ep1-tab.active {
+      background: rgba(26, 58, 143, 0.18);
+      text-decoration: underline;
+      font-style: italic;
+    }
+
+    /* ── CONTENT PANELS ── */
+    /* Only the panel with .active is shown; toggled by JS */
+    .ep1-panel {
+      display: none;
+    }
+    .ep1-panel.active {
+      display: block;
+    }
+
+    /* Votes panel — mirrors vibecheck-wrap positioning */
+    .ep1-votes-wrap {
+      position: absolute;
+      top: 52%;
+      left: 5%;
+      width: 90%;
+      padding: 0 1%;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    /* Section title for Votes (text, no image asset) */
+    .votes-title {
+      text-align: center;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1.5vw;
+      color: #1a3a8f;
+      margin-bottom: 0.6%;
+      letter-spacing: 0.12em;
+    }
+
+    /* Votes table */
+    .votes-grid {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1vw;
+      line-height: 1.3;
+      color: #1a3a8f;
+    }
+    .votes-grid thead th {
+      border: 1.5px solid #1a3a8f;
+      padding: 0.5% 1%;
+      text-align: center;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1vw;
+      color: #1a3a8f;
+    }
+    /* Outfit for CSV data cells */
+    .votes-grid tbody td {
+      border: 1px solid #1a3a8f;
+      padding: 0.5% 1%;
+      vertical-align: top;
+      color: #1a3a8f;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+    }
+
+    /* Money panel — mirrors vibecheck-wrap positioning */
+    .ep1-money-wrap {
+      position: absolute;
+      top: 52%;
+      left: 5%;
+      width: 90%;
+      padding: 0 1%;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    /* Money title image sizing */
+    .money-title img {
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Money table */
+    .money-grid {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1vw;
+      line-height: 1.3;
+      color: #1a3a8f;
+    }
+    .money-grid thead th {
+      border: 1.5px solid #1a3a8f;
+      padding: 0.5% 1%;
+      text-align: center;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1vw;
+      color: #1a3a8f;
+    }
+    /* Outfit for CSV data cells */
+    .money-grid tbody td {
+      border: 1px solid #1a3a8f;
+      padding: 0.5% 1%;
+      vertical-align: top;
+      color: #1a3a8f;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
     }
 
   </style>
@@ -176,32 +347,15 @@
           <img src="photo_assetts/ITunes.png" alt="iTunes">
         </div>
 
+        <!-- Episode title in Boogaloo font -->
+        <div class="nb-item ep1-episode-title">
+          Surveilance, Fraud, and Bike Lanes—Oh My!
+        </div>
 
       </div><!-- /.nb-page-left -->
 
       <!-- Right page -->
       <div class="nb-page nb-page-right">
-
-        <!-- Vibe Check table — edit data in the script block below -->
-        <div class="ep1-vibecheck-wrap">
-          <!-- Three info boxes — populated from data/ep1_meta.csv -->
-          <div class="vibecheck-header-boxes">
-            <span id="vc-location"></span>
-            <span id="vc-body"></span>
-            <span id="vc-date"></span>
-          </div>
-          <div class="vibecheck-title"><img src="photo_assetts/VibeCheckTitle.jpeg" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
-          <table class="vibecheck-grid">
-            <thead>
-              <tr>
-                <th style="width:25%">Side</th>
-                <th style="width:55%">Key Arguments</th>
-                <th style="width:20%">Timestamp</th>
-              </tr>
-            </thead>
-            <tbody id="vibe-check-body"></tbody>
-          </table>
-        </div>
 
         <!-- 16:9 responsive video wrapper -->
         <div class="ep1-video-wrap">
@@ -212,6 +366,72 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
+        </div>
+
+        <!-- Tab buttons: switch between Money, Vibes, and Votes panels below -->
+        <div class="ep1-tab-buttons">
+          <button class="ep1-tab active" data-tab="money">Money</button>
+          <button class="ep1-tab" data-tab="vibes">Vibes</button>
+          <button class="ep1-tab" data-tab="votes">Votes</button>
+        </div>
+
+        <!-- Panel: Vibes -->
+        <div class="ep1-panel" id="panel-vibes">
+          <div class="ep1-vibecheck-wrap">
+            <!-- Three info boxes — populated from data/ep1_meta.csv -->
+            <div class="vibecheck-header-boxes">
+              <span id="vc-location"></span>
+              <span id="vc-body"></span>
+              <span id="vc-date"></span>
+            </div>
+            <div class="vibecheck-title"><img src="photo_assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
+            <table class="vibecheck-grid">
+              <thead>
+                <tr>
+                  <th style="width:25%">Side</th>
+                  <th style="width:55%">Key Arguments</th>
+                  <th style="width:20%">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="vibe-check-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel: Votes — populated from data/ep1_votes.csv -->
+        <div class="ep1-panel" id="panel-votes">
+          <div class="ep1-votes-wrap">
+            <div class="votes-title">VOTES</div>
+            <table class="votes-grid">
+              <thead>
+                <tr>
+                  <th style="width:15%">Item</th>
+                  <th style="width:50%">Motion</th>
+                  <th style="width:20%">Result</th>
+                  <th style="width:15%">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="votes-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Panel: Money — populated from data/ep1_money.csv — shown by default -->
+        <div class="ep1-panel active" id="panel-money">
+          <div class="ep1-money-wrap">
+            <div class="money-title"><img src="photo_assetts/ByTheNumbers.png" alt="By the Numbers" style="width:60%; display:block; margin:0 auto;"></div>
+            <table class="money-grid">
+              <thead>
+                <tr>
+                  <th style="width:20%">Price</th>
+                  <th style="width:40%">Context</th>
+                  <th style="width:24%">Who Said It</th>
+                  <th style="width:16%">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="by-numbers-body"></tbody>
+            </table>
+          </div>
         </div>
 
       </div><!-- /.nb-page-right -->
@@ -226,24 +446,51 @@
 <script src="script.js"></script>
 
 <script>
-  /* ── DATA SOURCE ─────────────────────────────────────────────────────────
-     Header boxes → data/ep1_meta.csv     (columns: location, body, date)
-     Table rows   → data/ep1_vibecheck.csv (columns: side, keyarguments, live, written)
+  /* ── DATA SOURCES ────────────────────────────────────────────────────────
+     Vibes  → data/ep1_meta.csv      (columns: location, body, date)
+              data/ep1_vibecheck.csv  (columns: side, keyarguments, live, written)
+     Votes  → data/ep1_votes.csv     (columns: item, motion, result, timestamp)
+     Money  → data/ep1_money.csv     (columns: keynumber, context, whosaidit, timestamp)
 
-     Edit those CSV files to update this section.
-     Both files can be exported directly from separate sheets in Google Sheets.
+     Export each sheet from Google Sheets as CSV and drop into the data/ folder.
   ── */
   document.addEventListener('DOMContentLoaded', async () => {
+    /* Load all four CSVs in parallel; fall back to empty tables on any error */
     try {
-      const [meta, rows] = await Promise.all([
+      const [meta, vibes, votes, money] = await Promise.all([
         fetchCSV('data/ep1_meta.csv'),
-        fetchCSV('data/ep1_vibecheck.csv')
+        fetchCSV('data/ep1_vibecheck.csv'),
+        fetchCSV('data/ep1_votes.csv'),
+        fetchCSV('data/ep1_money.csv')
       ]);
       renderVibeCheckMeta(meta);
-      renderVibeCheck(rows);
+      renderVibeCheck(vibes);
+      renderVotes(votes);
+      renderByNumbers(money);
     } catch (e) {
-      renderVibeCheck([]);  // show empty table if CSVs aren't available yet
+      renderVibeCheck([]);
+      renderVotes([]);
+      renderByNumbers([]);
     }
+
+    /* ── TAB SWITCHING ─────────────────────────────────────────────────────
+       Each .ep1-tab button has data-tab matching a panel id (panel-vibes, etc.).
+       Clicking a tab removes .active from all tabs and panels, then re-adds it
+       to the clicked tab and the corresponding panel.
+    ── */
+    const tabs   = document.querySelectorAll('.ep1-tab');
+    const panels = document.querySelectorAll('.ep1-panel');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        /* Deactivate everything */
+        tabs.forEach(t   => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        /* Activate the selected tab and its panel */
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
   });
 </script>
 </body>

@@ -38,21 +38,38 @@ function renderVibeCheck(data) {
   }
 }
 
-function renderByNumbers(data) {
-  const tbody = document.getElementById('by-numbers-body');
+/* Fills the Votes panel table from ep1_votes.csv
+   Expected columns: item, motion, result, timestamp */
+function renderVotes(data) {
+  const tbody = document.getElementById('votes-body');
   if (!tbody) return;
-  const NUM_ROWS = 9;
+  const VOTE_ROWS = 9;
   tbody.innerHTML = '';
-  for (let i = 0; i < Math.max(data.length, NUM_ROWS); i++) {
+  for (let i = 0; i < Math.max(data.length, VOTE_ROWS); i++) {
     const tr = document.createElement('tr');
     if (i < data.length) {
       const d = data[i];
-      tr.innerHTML = `<td style="width:28%">${d.keynumber||''}</td><td style="width:34%">${d.context||''}</td><td style="width:22%">${d.whosaidit||''}</td><td style="width:16%">${d.timestamp||''}</td>`;
+      tr.innerHTML = `<td style="width:15%">${d.item||''}</td><td style="width:50%">${d.motion||''}</td><td style="width:20%">${d.result||''}</td><td style="width:15%">${d.timestamp||''}</td>`;
     } else {
       tr.innerHTML = '<td>&nbsp;</td><td></td><td></td><td></td>';
     }
     tbody.appendChild(tr);
   }
+}
+
+/* Fills the Money panel table from ep1_money.csv
+   CSV columns: Context, Price, Time Stamp, Who Said It
+   parseCSV normalises these to: context, price, timestamp, whosaidit */
+function renderByNumbers(data) {
+  const tbody = document.getElementById('by-numbers-body');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  /* No padding — show exactly the rows from the CSV */
+  data.forEach(d => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td style="width:20%">${d.price||''}</td><td style="width:40%">${d.context||''}</td><td style="width:24%">${d.whosaidit||''}</td><td style="width:16%">${d.timestamp||''}</td>`;
+    tbody.appendChild(tr);
+  });
 }
 
 function parseCSV(text) {
