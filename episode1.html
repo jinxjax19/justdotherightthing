@@ -7,6 +7,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── EPISODE 1 PAGE-SPECIFIC STYLES ── */
+    .ep1-film {
+      left: 56%;
+      top: 33%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+    }
+    .ep1-film:hover {
+      transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
+    }
+
+    .ep1-spotify,
+    .ep1-youtube,
+    .ep1-itunes {
+      top: 42%;
+      width: 15%;
+    }
+    .ep1-spotify { left: 26%; }
+    .ep1-youtube { left: 42%; }
+    .ep1-itunes  { left: 58%; }
+
+    .ep1-vibecheck {
+      left: 50%;
+      top: 65%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+    }
+    .ep1-back-star {
+      top: 2%;
+      right: 2%;
+      width: 18%;
+    }
+
+    .ep1-vibecheck:hover {
+      transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
+    }
+
+  </style>
 </head>
 <body>
 
@@ -21,10 +60,35 @@
       <!-- Left page -->
       <div class="nb-page nb-page-left">
 
+        <div class="nb-item ep1-film" data-href="#">
+          <img src="photo_assetts/Film_Frame.png" alt="Episode 1">
+        </div>
+
+        <div class="nb-item ep1-back-star" data-href="index.html">
+          <img src="photo_assetts/Star_Sticker.png" alt="Home">
+        </div>
+
+        <div class="nb-item ep1-spotify" data-href="#">
+          <img src="photo_assetts/Spotify.png" alt="Spotify">
+        </div>
+
+        <div class="nb-item ep1-youtube" data-href="#">
+          <img src="photo_assetts/YouTube.png" alt="YouTube">
+        </div>
+
+        <div class="nb-item ep1-itunes" data-href="#">
+          <img src="photo_assetts/ITunes.png" alt="iTunes">
+        </div>
+
+
       </div><!-- /.nb-page-left -->
 
       <!-- Right page -->
       <div class="nb-page nb-page-right">
+
+        <div class="nb-item ep1-vibecheck" data-href="#">
+          <img src="photo_assetts/VibeCheck_noback.PNG" alt="Vibe Check">
+        </div>
 
       </div><!-- /.nb-page-right -->
 

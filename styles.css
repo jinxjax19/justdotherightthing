@@ -26,12 +26,6 @@ html, body {
   filter: drop-shadow(2px 4px 10px rgba(0,0,0,0.25));
 }
 
-.bynumbers-blanket {
-  width: 22vw;
-  bottom: 4%;
-  left: 6%;
-  transform: rotate(-4deg);
-}
 
 
 /* ── NOTEBOOK ──────────────────────────────────────── */
