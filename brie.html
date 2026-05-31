@@ -5,32 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brie — Just Do The Right Thing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── BRIE PAGE STYLES ── */
+
+    .brie-photo {
+      position: absolute;
+      top: 3%;
+      left: 5%;
+      width: 88%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .brie-photo img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .brie-bio {
+      position: absolute;
+      top: 4%;
+      left: 4%;
+      width: 92%;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5vw;
+      color: #333;
+      line-height: 1.5;
+      pointer-events: none;
+    }
+    .brie-bio h2 {
+      font-size: 2vw;
+      font-weight: 600;
+      margin-bottom: 3%;
+      color: #1a1a1a;
+    }
+
+    .brie-back-star {
+      top: 2%;
+      right: 2%;
+      width: 18%;
+    }
+  </style>
 </head>
 <body>
 
-  <div id="tv-overlay" class="tv-overlay">
-    <canvas id="static-canvas"></canvas>
-    <div class="scanlines"></div>
-  </div>
+<div class="scene">
 
-  <div class="page-wrap bio-center">
+  <div class="notebook-wrap">
+    <img class="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
 
-    <button class="back-btn" data-href="index.html">&#8592; Back</button>
+    <div class="notebook-overlay">
 
-    <div class="bio-polaroid-lg">
-      <div class="frame"></div>
-      <p class="name">Brie</p>
-    </div>
+      <!-- Left page — photo + bio -->
+      <div class="nb-page nb-page-left">
 
-    <p class="bio-text">
-      <!-- Add Brie's bio here -->
-      Placeholder bio for Brie.
-    </p>
+        <div class="nb-item brie-back-star" data-href="index.html">
+          <img src="photo_assetts/Star_Sticker.png" alt="Home">
+        </div>
 
-  </div>
+        <div class="brie-photo">
+          <img src="photo_assetts/Brie.PNG" alt="Brianna">
+        </div>
 
-  <script src="transitions.js"></script>
+      </div><!-- /.nb-page-left -->
+
+      <!-- Right page — bio -->
+      <div class="nb-page nb-page-right">
+
+        <div class="brie-bio">
+          <h2>Brianna</h2>
+          <p>Brianna Sosa grew up in Virginia and began her professional career as a ballet dancer at 17, performing with the Washington Ballet and the Miami City Ballet. After several years of dancing, she pursued a B.A. in Media Studies from the University of Virginia, focusing her coursework on journalism. During her time at UVA, she reported and produced multimedia work for UVA's news platform, WUVA, and radio segments for WTJU 91.1FM. After graduation, Brianna lived in Washington D.C., where she worked at the Federal Bureau of Investigation for three years. She hopes to leverage her investigative background to conduct human-centered reporting that uncovers wrongdoing, legitimizes victims' voices, and holds people and institutions accountable. At Stanford, Brianna is excited to use data analysis to create compelling stories that examine trends affecting the Bay Area's local communities. Outside of the newsroom, Brianna enjoys knitting, reading, and attending comedy shows.</p>
+        </div>
+
+      </div><!-- /.nb-page-right -->
+
+    </div><!-- /.notebook-overlay -->
+  </div><!-- /.notebook-wrap -->
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -5,32 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ella — Just Do The Right Thing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=DM+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── ELLA PAGE STYLES ── */
+
+    .ella-photo {
+      position: absolute;
+      top: 3%;
+      left: 5%;
+      width: 88%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .ella-photo img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .ella-bio {
+      position: absolute;
+      top: 4%;
+      left: 4%;
+      width: 92%;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5vw;
+      color: #333;
+      line-height: 1.5;
+      pointer-events: none;
+    }
+    .ella-bio h2 {
+      font-size: 2vw;
+      font-weight: 600;
+      margin-bottom: 3%;
+      color: #1a1a1a;
+    }
+
+    .ella-back-star {
+      top: 2%;
+      right: 2%;
+      width: 18%;
+    }
+  </style>
 </head>
 <body>
 
-  <div id="tv-overlay" class="tv-overlay">
-    <canvas id="static-canvas"></canvas>
-    <div class="scanlines"></div>
-  </div>
+<div class="scene">
 
-  <div class="page-wrap bio-center">
+  <div class="notebook-wrap">
+    <img class="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
 
-    <button class="back-btn" data-href="index.html">&#8592; Back</button>
+    <div class="notebook-overlay">
 
-    <div class="bio-polaroid-lg">
-      <div class="frame"></div>
-      <p class="name">Ella</p>
-    </div>
+      <!-- Left page — photo + bio -->
+      <div class="nb-page nb-page-left">
 
-    <p class="bio-text">
-      <!-- Add Ella's bio here -->
-      Placeholder bio for Ella.
-    </p>
+        <div class="nb-item ella-back-star" data-href="index.html">
+          <img src="photo_assetts/Star_Sticker.png" alt="Home">
+        </div>
 
-  </div>
+        <div class="ella-photo">
+          <img src="photo_assetts/Ella.PNG" alt="Ella">
+        </div>
 
-  <script src="transitions.js"></script>
+      </div><!-- /.nb-page-left -->
+
+      <!-- Right page — bio -->
+      <div class="nb-page nb-page-right">
+
+        <div class="ella-bio">
+          <h2>Ella</h2>
+          <p>I graduated from Colby College in 2019 with a BA in Global Studies and a minor in Creative Writing. After graduating, I headed to DC and, after a brief internship on the hill, I started my career researching sustainable transportation at the World Resources Institute. At Stanford, I spent my time figuring out how to report and asking smart people what comes next for journalists living in an AI world.</p>
+        </div>
+
+      </div><!-- /.nb-page-right -->
+
+    </div><!-- /.notebook-overlay -->
+  </div><!-- /.notebook-wrap -->
+
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
