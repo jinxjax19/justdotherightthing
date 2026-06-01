@@ -116,7 +116,7 @@ html, body {
 .title-item {
   left: 10%;
   top: -2%;
-  width: 60%;
+  width: 80%;
   transform: rotate(-1deg);
 }
 .title-item:hover {
@@ -124,8 +124,8 @@ html, body {
 }
 
 .ella-polaroid {
-  left: 15%;
-  top: 35%;
+  left: 62%;
+  top: 60%;
   width: 38%;
   transform: rotate(3deg);   /* leans right, toward Brie */
 }
@@ -134,8 +134,8 @@ html, body {
 }
 
 .brie-polaroid {
-  left: 42%;
-  top: 35%;
+  left: 39%;
+  top: 40%;
   width: 40%;
   transform: rotate(-3deg);  /* leans left, toward Ella */
   z-index: 2;
@@ -146,92 +146,36 @@ html, body {
 
 .stars-item {
   left: 50%;
-  top: 5%;
+  top: 15%;
   width: 55%;
   z-index: 1;
 }
 
 .stanford-item {
-  left: 4%;
-  top: 65%;
-  width: 44%;
+  left: 2%;
+  top: 50%;
+  width: 64%;
   transform: rotate(-1deg);
 }
 .stanford-item:hover {
   transform: rotate(-1deg) translateY(-4px) scale(1.04);
 }
 
-.learn-more-item {
-  left: 50%;
-  top: 68%;
-  width: 44%;
-  transform: rotate(1deg);
-}
-.learn-more-item:hover {
-  transform: rotate(1deg) translateY(-4px) scale(1.04);
-}
-
-.about-item {
-  left: 10%;
-  top: 30%;
-  font-family: 'Girl Next Door', cursive;
-  font-size: 3.6cqw;
-  font-weight: 600;
-  color: #1a4fa8;
-  letter-spacing: 0.02em;
-  filter: none;
-  border-bottom: 0.2cqw solid #1a4fa8;
-  line-height: 1;
-  padding-bottom: 0.2%;
-}
-.about-item:hover {
-  transform: translateY(-3px);
-  filter: none;
-  color: #0d3282;
-}
 
 .radio-item {
-  left: 55%;
-  bottom: 2%;
-  width: 40%;
+  left: 50%;
+  bottom: 4%;
+  width: 35%;
   text-align: center;
 }
 
 .tune-in {
   font-family: 'TheGirlNextDoor', cursive;
-  font-size: 1.4cqw;
+  font-size: 1.3cqw;
   color: #333;
   margin-top: 2%;
   text-align: center;
 }
-
-/* ── POLAROID FRAMES ───────────────────────────────── */
-.nb-polaroid {
-  background: #fff;
-  padding: 3% 3% 13%;
-  filter: none;
-  box-shadow: 2px 4px 12px rgba(0,0,0,0.22);
-}
-
-.nb-polaroid:hover {
-  box-shadow: 4px 10px 22px rgba(0,0,0,0.32);
-  filter: none;
-}
-
-.polaroid-photo {
-  width: 100%;
-  aspect-ratio: 1;
-  background: #ddd8d0;
-  overflow: hidden;
-}
-
-.polaroid-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
 
 /* ── EPISODE META ROW ─────────────────────────────────
    Location / governing body / date strip — sits above the
@@ -241,7 +185,7 @@ html, body {
    ────────────────────────────────────────────────── */
 .nb-meta-row {
   position: absolute;
-  top: 5%;
+  top: 6%;
   left: 5%;
   width: 90%;
   display: flex;
@@ -266,11 +210,6 @@ html, body {
 
 /* ── RIGHT PAGE ITEMS ──────────────────────────────── */
 
-.film-item {
-  left: 0%;
-  top: 1%;
-  width: 120%;
-}
 
 .platform-item {
   left: 8%;

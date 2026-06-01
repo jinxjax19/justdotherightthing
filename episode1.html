@@ -32,7 +32,7 @@
     /* Episode title displayed on the left notebook page, above the film strip */
     .ep1-episode-title {
       position: absolute;
-      top: 2%;
+      top: 3%;
       left: 54%;
       transform: translateX(-50%);
       width: 80%;
@@ -56,7 +56,7 @@
     /* Episode description — below the film strip and platform icons */
     .ep1-description {
       position: absolute;
-      top: 55%;
+      top: 52%;
       left: 15%;
       width: 82%;
       font-family: 'Outfit', cursive;
@@ -68,10 +68,10 @@
     }
 
     .ep1-film {
-      left: 60%;
-      top: 33%;
+      left: 55%;
+      top: 36%;
       transform: translate(-50%, -50%);
-      width: 125%;
+      width: 65%;
     }
     .ep1-film:hover {
       transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
@@ -80,8 +80,8 @@
     .ep1-spotify,
     .ep1-youtube,
     .ep1-itunes {
-      top: 42%;
-      width: 15%;
+      top: 88%;
+      width: 13%;
       z-index: 10;
       transition: transform 0.16s ease, filter 0.16s ease;
     }
@@ -107,9 +107,9 @@
     .ep1-video-wrap {
       position: absolute;
       top: 12%;
-      left: 12%;
-      width: 76.5%;
-      padding-top: calc(76.5% * 9 / 16);
+      left: 15.5%;
+      width: 69%;
+      padding-top: calc(69% * 9 / 16);
       border-radius: 4px;
       overflow: hidden;
       box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
@@ -138,7 +138,7 @@
     /* ── VIBE CHECK TABLE ── */
     .ep1-vibecheck-wrap {
       position: absolute;
-      top: 52%;
+      top: 49%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
@@ -196,11 +196,11 @@
     /* Row of three buttons sitting in the gap between the video and the content panels */
     .ep1-tab-buttons {
       position: absolute;
-      top: 46%;
+      top: 43%;
       left: 5%;
       width: 90%;
       display: flex;
-      gap: 2%;
+      gap: 0;
       pointer-events: auto;  /* parent .nb-page has pointer-events:none, re-enable here */
       z-index: 15;
     }
@@ -219,6 +219,11 @@
       opacity: 0.82;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+
+    /* Collapse the shared border between adjacent tabs */
+    .ep1-tab + .ep1-tab {
+      margin-left: -1.5px;
     }
 
     .ep1-tab:hover {
@@ -244,7 +249,7 @@
     /* Votes panel — mirrors vibecheck-wrap positioning */
     .ep1-votes-wrap {
       position: absolute;
-      top: 52%;
+      top: 49%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
@@ -293,7 +298,7 @@
     /* Money panel — mirrors vibecheck-wrap positioning */
     .ep1-money-wrap {
       position: absolute;
-      top: 52%;
+      top: 49%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
@@ -373,8 +378,15 @@
     .money-grid thead th {
       position: sticky;
       top: 0;
-      background: #f5f0e8;   /* approximate notebook paper colour */
+      background: #f5f0e8;
       z-index: 1;
+    }
+
+    /* Prevent empty tbody from rendering a visible bordered box before data loads */
+    #by-numbers-body:empty,
+    #votes-body:empty,
+    #vibe-check-body:empty {
+      display: none;
     }
 
     /* Money table */
@@ -420,7 +432,7 @@
       <div class="nb-page nb-page-left">
 
         <div class="nb-item ep1-film" data-href="#">
-          <img src="assetts/Film_Frame.png" alt="Episode 1">
+          <img src="assetts/film_full.PNG" alt="Episode 1">
         </div>
 
 
@@ -496,12 +508,6 @@
             <div class="votes-title">DECISIONS</div>
             <div class="ep1-votes-scroll">
               <table class="votes-grid">
-                <thead>
-                  <tr>
-                    <th style="width:80%">Decision</th>
-                    <th style="width:20%">Timestamp</th>
-                  </tr>
-                </thead>
                 <tbody id="votes-body"></tbody>
               </table>
             </div>
@@ -514,14 +520,6 @@
             <div class="money-title"><img src="assetts/ByTheNumbers.png" alt="By the Numbers" style="width:60%; display:block; margin:0 auto;"></div>
             <div class="ep1-money-scroll">
               <table class="money-grid">
-                <thead>
-                  <tr>
-                    <th style="width:20%">Price</th>
-                    <th style="width:40%">Context</th>
-                    <th style="width:24%">Who Said It</th>
-                    <th style="width:16%">Timestamp</th>
-                  </tr>
-                </thead>
                 <tbody id="by-numbers-body"></tbody>
               </table>
             </div>
