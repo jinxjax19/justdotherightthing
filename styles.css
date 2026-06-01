@@ -123,25 +123,40 @@ html, body {
   transform: rotate(-1deg) translateY(-4px) scale(1.04);
 }
 
-.ella-polaroid {
-  left: 62%;
-  top: 60%;
-  width: 38%;
-  transform: rotate(3deg);   /* leans right, toward Brie */
+/* Group container — the whole unit lifts and clicks together */
+.team-polaroid-group {
+  left: 35%;
+  top: 37%;
+  width: 65%;
+  height: 60%;
 }
-.ella-polaroid:hover {
-  transform: rotate(3deg) translateY(-5px) scale(1.05);
+
+/* Positions are now relative to the group, not the page */
+.ella-polaroid {
+  position: absolute;
+  left: 42%;
+  top: 38%;
+  width: 58%;
+  transform: rotate(3deg);
+}
+.ella-polaroid img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .brie-polaroid {
-  left: 39%;
-  top: 40%;
-  width: 40%;
-  transform: rotate(-3deg);  /* leans left, toward Ella */
+  position: absolute;
+  left: 6%;
+  top: 5%;
+  width: 62%;
+  transform: rotate(-3deg);
   z-index: 2;
 }
-.brie-polaroid:hover {
-  transform: rotate(-3deg) translateY(-5px) scale(1.05);
+.brie-polaroid img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
 }
 
 .stars-item {
