@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Episode 1 — Just Do The Right Thing</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Caveat:wght@400;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <!-- YouTube IFrame API — must load before the player is initialised -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     /* ── EPISODE 1 PAGE-SPECIFIC STYLES ── */
 
@@ -36,7 +38,7 @@
       width: 80%;
       text-align: center;
       font-family: 'Oswald', sans-serif;
-      font-size: 2.2vw;
+      font-size: 2.2cqw;
       font-variant: small-caps;
       color: #67859f;
       line-height: 1.3;
@@ -44,7 +46,7 @@
     }
     /* Subtitle under the episode title */
     .ep1-episode-location {
-      font-size: 1.55vw;
+      font-size: 1.55cqw;
       font-style: italic;
       font-variant: small-caps;
       margin-top: 0.3em;
@@ -99,11 +101,24 @@
       box-shadow: 2px 4px 12px rgba(0,0,0,0.3);
       pointer-events: auto;
     }
+    /* The IFrame API replaces #ep1-ytplayer with an <iframe>;
+       both elements need to fill the wrapper completely */
+    #ep1-ytplayer,
     .ep1-video-wrap iframe {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
+    }
+
+    /* Clickable timestamp cells in the Money table */
+    .ts-link {
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ts-link:hover {
+      opacity: 0.65;
     }
 
     /* ── VIBE CHECK TABLE ── */
@@ -139,7 +154,7 @@
     .vibecheck-grid {
       width: 100%;
       border-collapse: collapse;
-      font-size: 1vw;
+      font-size: 1cqw;
       line-height: 1.3;
       color: #1a3a8f;
     }
@@ -149,7 +164,7 @@
       border: 1.5px solid #1a3a8f;
       padding: 0.5% 1%;
       text-align: center;
-      font-size: 1vw;
+      font-size: 1cqw;
       color: #1a3a8f;
     }
 
@@ -180,7 +195,7 @@
       flex: 1;
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
-      font-size: 1vw;
+      font-size: 1cqw;
       color: #1a3a8f;
       border: 1.5px solid #1a3a8f;
       background: transparent;
@@ -223,22 +238,22 @@
       pointer-events: none;
     }
 
-    /* Section title for Votes (text, no image asset) */
+    /* Section title for Votes — matches the Oswald episode title style */
     .votes-title {
       text-align: center;
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: bold;
-      font-size: 1.5vw;
-      color: #1a3a8f;
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.2cqw;
+      font-variant: small-caps;
+      color: #67859f;
+      line-height: 1.3;
       margin-bottom: 0.6%;
-      letter-spacing: 0.12em;
     }
 
     /* Votes table */
     .votes-grid {
       width: 100%;
       border-collapse: collapse;
-      font-size: 1vw;
+      font-size: 1cqw;
       line-height: 1.3;
       color: #1a3a8f;
     }
@@ -248,7 +263,7 @@
       text-align: center;
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
-      font-size: 1vw;
+      font-size: 1cqw;
       color: #1a3a8f;
     }
     /* Outfit for CSV data cells */
@@ -303,7 +318,7 @@
     .money-grid {
       width: 100%;
       border-collapse: collapse;
-      font-size: 1vw;
+      font-size: 1cqw;
       line-height: 1.3;
       color: #1a3a8f;
     }
@@ -313,7 +328,7 @@
       text-align: center;
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
-      font-size: 1vw;
+      font-size: 1cqw;
       color: #1a3a8f;
     }
     /* Outfit for CSV data cells */
@@ -376,15 +391,9 @@
           <span id="vc-date"></span>
         </div>
 
-        <!-- 16:9 responsive video wrapper -->
+        <!-- 16:9 responsive video wrapper — iframe injected by YouTube IFrame API -->
         <div class="ep1-video-wrap">
-          <iframe
-            src="https://www.youtube.com/embed/QyymX3AgHL0"
-            title="Episode 1"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
+          <div id="ep1-ytplayer"></div>
         </div>
 
         <!-- Tab buttons: switch between Money, Vibes, and Votes panels below -->
@@ -461,6 +470,21 @@
 <script src="script.js"></script>
 
 <script>
+  /* ── YOUTUBE IFRAME API ──────────────────────────────────────────────────
+     onYouTubeIframeAPIReady is called automatically by the API script once
+     it finishes loading. It creates a controllable player inside #ep1-ytplayer.
+  ── */
+  var ep1Player = null;
+
+  function onYouTubeIframeAPIReady() {
+    ep1Player = new YT.Player('ep1-ytplayer', {
+      videoId: 'QyymX3AgHL0',
+      playerVars: {
+        origin: window.location.origin  /* required to avoid postMessage errors */
+      }
+    });
+  }
+
   /* ── DATA SOURCES ────────────────────────────────────────────────────────
      Vibes  → data/ep1_meta.csv      (columns: location, body, date)
               data/ep1_vibecheck.csv  (columns: side, keyarguments, live, written)
@@ -505,6 +529,22 @@
         tab.classList.add('active');
         document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
       });
+    });
+
+    /* ── TIMESTAMP → VIDEO SEEK ──────────────────────────────────────────────
+       Event delegation: any .ts-link click seeks the YT player to data-seconds
+       and starts playback. Works even if the player finishes loading after the
+       table has already rendered.
+    ── */
+    document.addEventListener('click', function(e) {
+      const cell = e.target.closest('.ts-link');
+      if (!cell) return;
+      const seconds = parseInt(cell.dataset.seconds, 10);
+      if (isNaN(seconds)) return;
+      if (ep1Player && typeof ep1Player.seekTo === 'function') {
+        ep1Player.seekTo(seconds, true);
+        ep1Player.playVideo();
+      }
     });
   });
 </script>

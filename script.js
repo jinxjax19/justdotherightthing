@@ -57,9 +57,21 @@ function renderVotes(data) {
   }
 }
 
+/* Convert a H:MM:SS or M:SS timestamp string to total seconds.
+   Used to build the data-seconds attribute for YouTube seekTo links. */
+function timeToSeconds(str) {
+  if (!str) return 0;
+  const parts = str.trim().split(':').map(Number);
+  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
+  if (parts.length === 2) return parts[0] * 60 + parts[1];
+  return 0;
+}
+
 /* Fills the Money panel table from ep1_money.csv
    CSV columns: Context, Price, Time Stamp, Who Said It
-   parseCSV normalises these to: context, price, timestamp, whosaidit */
+   parseCSV normalises these to: context, price, timestamp, whosaidit
+   Timestamp cells get class="ts-link" and data-seconds so the YT player
+   can seek to that position when clicked. */
 function renderByNumbers(data) {
   const tbody = document.getElementById('by-numbers-body');
   if (!tbody) return;
@@ -67,7 +79,12 @@ function renderByNumbers(data) {
   /* No padding — show exactly the rows from the CSV */
   data.forEach(d => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td style="width:20%">${d.price||''}</td><td style="width:40%">${d.context||''}</td><td style="width:24%">${d.whosaidit||''}</td><td style="width:16%">${d.timestamp||''}</td>`;
+    const secs = timeToSeconds(d.timestamp);
+    /* Only make the cell a link if we got a valid non-zero time */
+    const tsCell = secs > 0
+      ? `<td class="ts-link" data-seconds="${secs}" style="width:16%">${d.timestamp}</td>`
+      : `<td style="width:16%">${d.timestamp||''}</td>`;
+    tr.innerHTML = `<td style="width:20%">${d.price||''}</td><td style="width:40%">${d.context||''}</td><td style="width:24%">${d.whosaidit||''}</td>${tsCell}`;
     tbody.appendChild(tr);
   });
 }

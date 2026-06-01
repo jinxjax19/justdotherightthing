@@ -34,6 +34,7 @@ html, body {
   position: relative;
   width: min(100vw, calc(100vh * 1264 / 841));
   height: min(100vh, calc(100vw * 841 / 1264));
+  container-type: inline-size;  /* cqw units inside track notebook width, not viewport */
   filter: drop-shadow(0 12px 40px rgba(0,0,0,0.35))
           drop-shadow(0 4px 12px rgba(0,0,0,0.2));
 }
@@ -164,12 +165,12 @@ html, body {
   left: 10%;
   top: 30%;
   font-family: 'Girl Next Door', cursive;
-  font-size: 3.6vw;
+  font-size: 3.6cqw;
   font-weight: 600;
   color: #1a4fa8;
   letter-spacing: 0.02em;
   filter: none;
-  border-bottom: 0.2vw solid #1a4fa8;
+  border-bottom: 0.2cqw solid #1a4fa8;
   line-height: 1;
   padding-bottom: 0.2%;
 }
@@ -188,7 +189,7 @@ html, body {
 
 .tune-in {
   font-family: 'TheGirlNextDoor', cursive;
-  font-size: 1.4vw;
+  font-size: 1.4cqw;
   color: #333;
   margin-top: 2%;
   text-align: center;
@@ -245,7 +246,7 @@ html, body {
   color: #1a3a8f;
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
-  font-size: 1vw;
+  font-size: 1cqw;
   text-align: center;
   padding: 0.5% 1%;
 }
@@ -288,7 +289,7 @@ html, body {
 /* ── NO-ASSET LABELS ───────────────────────────────── */
 .no-asset-label {
   font-family: monospace;
-  font-size: 1.1vw;
+  font-size: 1.1cqw;
   color: rgba(0,0,0,0.28);
   border: 1px dashed rgba(0,0,0,0.18);
   padding: 6% 10%;
