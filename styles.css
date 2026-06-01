@@ -101,16 +101,6 @@ html, body {
   transform: translateY(-1px) scale(1.01);
 }
 
-/* Non-interactive items */
-.stars-item {
-  cursor: default;
-  pointer-events: none;
-}
-.stars-item:hover {
-  transform: none;
-  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.22));
-}
-
 /* ── LEFT PAGE ITEMS ───────────────────────────────── */
 
 .title-item {
@@ -157,13 +147,6 @@ html, body {
   width: 100%;
   display: block;
   object-fit: contain;
-}
-
-.stars-item {
-  left: 50%;
-  top: 15%;
-  width: 55%;
-  z-index: 1;
 }
 
 .stanford-item {
@@ -222,47 +205,6 @@ html, body {
 .nb-meta-row span:last-child {
   border-right: none;
 }
-
-/* ── RIGHT PAGE ITEMS ──────────────────────────────── */
-
-
-.platform-item {
-  left: 8%;
-  top: 45%;
-  width: 82%;
-}
-
-/* Platform icons — same size, evenly spaced below film strip */
-.platform-spotify,
-.platform-youtube,
-.platform-itunes {
-  top: 72%;
-  width: 24%;
-}
-
-.platform-spotify { left: 5%; }
-.platform-youtube { left: 38%; }
-.platform-itunes  { left: 71%; }
-
-.vibecheck-item {
-  left: 3%;
-  top: 58%;
-  width: 44%;
-}
-
-/* ── NO-ASSET LABELS ───────────────────────────────── */
-.no-asset-label {
-  font-family: monospace;
-  font-size: 1.1cqw;
-  color: rgba(0,0,0,0.28);
-  border: 1px dashed rgba(0,0,0,0.18);
-  padding: 6% 10%;
-  border-radius: 2px;
-  white-space: nowrap;
-  display: block;
-  text-align: center;
-}
-
 
 /* ── TEA ───────────────────────────────────────────── */
 .tea-item {
