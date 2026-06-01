@@ -21,47 +21,102 @@ function renderVibeCheckMeta(data) {
   if (date) date.textContent = d.date     || '';
 }
 
+/* Fills the Vibes panel table from ep1_vibecheck.csv
+   CSV columns: Supporters, Key Argument, TimeStamp
+   Rows with an empty Supporters cell are treated as continuations of the
+   previous group; the first row of each group gets a rowspan spanning all
+   its continuation rows so the label merges visually. */
 function renderVibeCheck(data) {
   const tbody = document.getElementById('vibe-check-body');
   if (!tbody) return;
-  const VIBE_ROWS = 9;
   tbody.innerHTML = '';
-  for (let i = 0; i < Math.max(data.length, VIBE_ROWS); i++) {
-    const tr = document.createElement('tr');
-    if (i < data.length) {
-      const d = data[i];
-      tr.innerHTML = `<td style="width:25%">${d.side||''}</td><td style="width:55%">${d.keyarguments||''}</td><td style="width:20%">${d.live||''}</td>`;
-    } else {
-      tr.innerHTML = '<td>&nbsp;</td><td></td><td></td>';
+
+  let i = 0;
+  while (i < data.length) {
+    const d = data[i];
+    const supporter = (d.supporters || '').trim();
+
+    /* Count how many following rows belong to this group (empty supporters) */
+    let span = 1;
+    while (i + span < data.length && !(data[i + span].supporters || '').trim()) {
+      span++;
     }
+
+    /* First row of the group — supporters cell spans all rows in the group */
+    const tr = document.createElement('tr');
+    const secs = timeToSeconds(d.timestamp);
+    const tsCell = secs > 0
+      ? `<td class="ts-link" data-seconds="${secs}" style="width:20%">${d.timestamp}</td>`
+      : `<td style="width:20%">${d.timestamp||''}</td>`;
+    tr.innerHTML = `<td rowspan="${span}" style="width:25%; vertical-align:middle;">${supporter}</td><td style="width:55%">${d.keyargument||''}</td>${tsCell}`;
+    tbody.appendChild(tr);
+
+    /* Continuation rows — no supporters cell (consumed by rowspan above) */
+    for (let j = 1; j < span; j++) {
+      const rd = data[i + j];
+      const tr2 = document.createElement('tr');
+      const secs2 = timeToSeconds(rd.timestamp);
+      const tsCell2 = secs2 > 0
+        ? `<td class="ts-link" data-seconds="${secs2}" style="width:20%">${rd.timestamp}</td>`
+        : `<td style="width:20%">${rd.timestamp||''}</td>`;
+      tr2.innerHTML = `<td style="width:55%">${rd.keyargument||''}</td>${tsCell2}`;
+      tbody.appendChild(tr2);
+    }
+
+    i += span;
+  }
+
+  /* Pad to minimum row count so the table doesn't look sparse when data is short */
+  const VIBE_ROWS = 9;
+  const rendered = tbody.querySelectorAll('tr').length;
+  for (let p = rendered; p < VIBE_ROWS; p++) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>&nbsp;</td><td></td><td></td>';
     tbody.appendChild(tr);
   }
 }
 
-/* Fills the Votes panel table from ep1_votes.csv
-   Expected columns: item, motion, result, timestamp */
+/* Fills the Decisions panel table from ep1_votes.csv
+   CSV columns: Proposals (text), "" (timestamp — header is blank)
+   Rows where the timestamp column is empty are section headers and render
+   as a full-width merged cell. All other rows get a clickable timestamp. */
 function renderVotes(data) {
   const tbody = document.getElementById('votes-body');
   if (!tbody) return;
-  const VOTE_ROWS = 9;
   tbody.innerHTML = '';
-  for (let i = 0; i < Math.max(data.length, VOTE_ROWS); i++) {
-    const tr = document.createElement('tr');
-    if (i < data.length) {
-      const d = data[i];
-      tr.innerHTML = `<td style="width:15%">${d.item||''}</td><td style="width:50%">${d.motion||''}</td><td style="width:20%">${d.result||''}</td><td style="width:15%">${d.timestamp||''}</td>`;
+
+  /* "Proposals" is the CSV column header so it doesn't appear as a data row —
+     inject it manually as the first section header */
+  const firstHeader = document.createElement('tr');
+  firstHeader.innerHTML = `<td colspan="2" class="votes-section-header">Proposals</td>`;
+  tbody.appendChild(firstHeader);
+
+  data.forEach(d => {
+    const tr  = document.createElement('tr');
+    const text = d.proposals || '';
+    const ts   = (d[''] || '').trim();   /* timestamp lives in the blank-named column */
+
+    if (!ts) {
+      /* Section header row (e.g. "Next Steps") */
+      tr.innerHTML = `<td colspan="2" class="votes-section-header">${text}</td>`;
     } else {
-      tr.innerHTML = '<td>&nbsp;</td><td></td><td></td><td></td>';
+      /* Decision row with clickable timestamp */
+      const secs = timeToSeconds(ts);
+      const tsCell = secs > 0
+        ? `<td class="ts-link" data-seconds="${secs}" style="width:20%">${ts}</td>`
+        : `<td style="width:20%">${ts}</td>`;
+      tr.innerHTML = `<td style="width:80%">${text}</td>${tsCell}`;
     }
     tbody.appendChild(tr);
-  }
+  });
 }
 
 /* Convert a H:MM:SS or M:SS timestamp string to total seconds.
-   Used to build the data-seconds attribute for YouTube seekTo links. */
+   Strips surrounding brackets e.g. [01:59:00] before parsing. */
 function timeToSeconds(str) {
   if (!str) return 0;
-  const parts = str.trim().split(':').map(Number);
+  const cleaned = str.trim().replace(/[\[\]]/g, '');
+  const parts = cleaned.split(':').map(Number);
   if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
   if (parts.length === 2) return parts[0] * 60 + parts[1];
   return 0;

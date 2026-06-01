@@ -53,6 +53,20 @@
       letter-spacing: 0.04em;
     }
 
+    /* Episode description — below the film strip and platform icons */
+    .ep1-description {
+      position: absolute;
+      top: 55%;
+      left: 15%;
+      width: 82%;
+      font-family: 'Outfit', cursive;
+      font-size: 1.3cqw;
+      color: #0c072ab9;
+      line-height: 1.6;
+      opacity: 0.78;
+      pointer-events: none;
+    }
+
     .ep1-film {
       left: 60%;
       top: 33%;
@@ -293,6 +307,55 @@
       margin: 0 auto;
     }
 
+    /* Scrollable wrapper for the decisions (votes) table */
+    .ep1-votes-scroll {
+      max-height: 26vh;
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+    .ep1-votes-scroll::-webkit-scrollbar        { width: 4px; }
+    .ep1-votes-scroll::-webkit-scrollbar-track  { background: transparent; }
+    .ep1-votes-scroll::-webkit-scrollbar-thumb  { background: rgba(26,58,143,0.35); border-radius: 2px; }
+
+    /* Sticky header row for decisions table */
+    .votes-grid thead th {
+      position: sticky;
+      top: 0;
+      background: #f5f0e8;
+      z-index: 1;
+    }
+
+    /* Full-width section divider rows ("Proposals", "Next Steps") */
+    .votes-section-header {
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1cqw;
+      color: #1a3a8f;
+      text-align: center;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-top: 1.5px solid #1a3a8f !important;
+      padding-top: 1% !important;
+    }
+
+    /* Scrollable wrapper for the vibes table — mirrors money scroll */
+    .ep1-vibes-scroll {
+      max-height: 26vh;
+      overflow-y: auto;
+      pointer-events: auto;
+    }
+    .ep1-vibes-scroll::-webkit-scrollbar        { width: 4px; }
+    .ep1-vibes-scroll::-webkit-scrollbar-track  { background: transparent; }
+    .ep1-vibes-scroll::-webkit-scrollbar-thumb  { background: rgba(26,58,143,0.35); border-radius: 2px; }
+
+    /* Sticky header for vibes table */
+    .vibecheck-grid thead th {
+      position: sticky;
+      top: 0;
+      background: #f5f0e8;
+      z-index: 1;
+    }
+
     /* Scrollable wrapper for the money table — pointer-events:auto so the user
        can actually scroll; parent wrap has pointer-events:none */
     .ep1-money-scroll {
@@ -373,6 +436,11 @@
           <img src="assetts/ITunes.png" alt="iTunes">
         </div>
 
+        <!-- Episode description in Girl Next Door font -->
+        <div class="ep1-description">
+          Today we dig into San Mateo's most divisive stretch of asphalt: the Humboldt bike lane. We break down the four-year feud where residents are harassing cyclists and one neighbor built a homemade surveillance network to prove his point. The data is a mess, the politics are messier. Grab your headphones and hear what happens when you take away 200 parking spots.
+        </div>
+
         <!-- Episode title in Oswald font -->
         <div class="nb-item ep1-episode-title">
           Surveillance, Fraud, and Bikers - Oh My!
@@ -400,41 +468,43 @@
         <div class="ep1-tab-buttons">
           <button class="ep1-tab active" data-tab="money">Money</button>
           <button class="ep1-tab" data-tab="vibes">Vibes</button>
-          <button class="ep1-tab" data-tab="votes">Votes</button>
+          <button class="ep1-tab" data-tab="votes">Decisions</button>
         </div>
 
         <!-- Panel: Vibes -->
         <div class="ep1-panel" id="panel-vibes">
           <div class="ep1-vibecheck-wrap">
             <div class="vibecheck-title"><img src="assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
-            <table class="vibecheck-grid">
-              <thead>
-                <tr>
-                  <th style="width:25%">Side</th>
-                  <th style="width:55%">Key Arguments</th>
-                  <th style="width:20%">Timestamp</th>
-                </tr>
-              </thead>
-              <tbody id="vibe-check-body"></tbody>
-            </table>
+            <div class="ep1-vibes-scroll">
+              <table class="vibecheck-grid">
+                <thead>
+                  <tr>
+                    <th style="width:25%">Supporters</th>
+                    <th style="width:55%">Key Argument</th>
+                    <th style="width:20%">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="vibe-check-body"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
         <!-- Panel: Votes — populated from data/ep1_votes.csv -->
         <div class="ep1-panel" id="panel-votes">
           <div class="ep1-votes-wrap">
-            <div class="votes-title">VOTES</div>
-            <table class="votes-grid">
-              <thead>
-                <tr>
-                  <th style="width:15%">Item</th>
-                  <th style="width:50%">Motion</th>
-                  <th style="width:20%">Result</th>
-                  <th style="width:15%">Timestamp</th>
-                </tr>
-              </thead>
-              <tbody id="votes-body"></tbody>
-            </table>
+            <div class="votes-title">DECISIONS</div>
+            <div class="ep1-votes-scroll">
+              <table class="votes-grid">
+                <thead>
+                  <tr>
+                    <th style="width:80%">Decision</th>
+                    <th style="width:20%">Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody id="votes-body"></tbody>
+              </table>
+            </div>
           </div>
         </div>
 
