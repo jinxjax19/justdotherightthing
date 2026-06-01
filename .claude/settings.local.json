@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(python3 *)",
-      "Bash(curl -s http://localhost:8080/styles.css)"
+      "Bash(curl -s http://localhost:8080/styles.css)",
+      "Bash(sed -i '' 's|photo_assetts|assetts|g' /Users/eleanorjackson/Python/justdotherightthing/episode1.html /Users/eleanorjackson/Python/justdotherightthing/index.html /Users/eleanorjackson/Python/justdotherightthing/about.html /Users/eleanorjackson/Python/justdotherightthing/ella.html /Users/eleanorjackson/Python/justdotherightthing/brie.html /Users/eleanorjackson/Python/justdotherightthing/styles.css)"
+    ],
+    "additionalDirectories": [
+      "/Users/eleanorjackson/Python/justdotherightthing"
     ]
   }
 }

@@ -12,37 +12,47 @@
 
     @font-face {
       font-family: 'TheGirlNextDoor';
-      src: url('photo_assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
+      src: url('assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
     }
 
-    /* Boogaloo font for episode title */
+    /* Oswald font for episode title */
     @font-face {
-      font-family: 'Boogaloo';
-      src: url('photo_assetts/Boogaloo/Boogaloo-Regular.ttf') format('truetype');
+      font-family: 'Oswald';
+      src: url('assetts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
     }
 
     /* Outfit font — used for all CSV-imported table data */
     @font-face {
       font-family: 'Outfit';
-      src: url('photo_assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
+      src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
     /* Episode title displayed on the left notebook page, above the film strip */
     .ep1-episode-title {
       position: absolute;
-      top: 8%;
-      left: 50%;
+      top: 2%;
+      left: 54%;
       transform: translateX(-50%);
       width: 80%;
       text-align: center;
-      font-family: 'Boogaloo', cursive;
+      font-family: 'Oswald', sans-serif;
       font-size: 2.2vw;
-      color: #1a3a8f;
+      font-variant: small-caps;
+      color: #67859f;
       line-height: 1.3;
       pointer-events: none;
     }
+    /* Subtitle under the episode title */
+    .ep1-episode-location {
+      font-size: 1.55vw;
+      font-style: italic;
+      font-variant: small-caps;
+      margin-top: 0.3em;
+      letter-spacing: 0.04em;
+    }
+
     .ep1-film {
-      left: 56%;
+      left: 60%;
       top: 33%;
       transform: translate(-50%, -50%);
       width: 125%;
@@ -59,9 +69,9 @@
       z-index: 10;
       transition: transform 0.16s ease, filter 0.16s ease;
     }
-    .ep1-spotify { left: 26%; }
-    .ep1-youtube { left: 42%; }
-    .ep1-itunes  { left: 58%; }
+    .ep1-spotify { left: 29%; }
+    .ep1-youtube { left: 45%; }
+    .ep1-itunes  { left: 61%; }
 
     /* Explicit hover/active animation for platform icons */
     .ep1-spotify:hover,
@@ -324,7 +334,7 @@
 
   <!-- Notebook container -->
   <div class="notebook-wrap">
-    <img class="notebook-img" src="photo_assetts/Notebook.png" alt="Open notebook">
+    <img class="notebook-img" src="assetts/Notebook.png" alt="Open notebook">
 
     <div class="notebook-overlay">
 
@@ -332,25 +342,26 @@
       <div class="nb-page nb-page-left">
 
         <div class="nb-item ep1-film" data-href="#">
-          <img src="photo_assetts/Film_Frame.png" alt="Episode 1">
+          <img src="assetts/Film_Frame.png" alt="Episode 1">
         </div>
 
 
         <div class="nb-item ep1-spotify" data-href="#">
-          <img src="photo_assetts/Spotify.png" alt="Spotify">
+          <img src="assetts/Spotify.png" alt="Spotify">
         </div>
 
         <div class="nb-item ep1-youtube" data-href="#">
-          <img src="photo_assetts/YouTube.png" alt="YouTube">
+          <img src="assetts/YouTube.png" alt="YouTube">
         </div>
 
         <div class="nb-item ep1-itunes" data-href="#">
-          <img src="photo_assetts/ITunes.png" alt="iTunes">
+          <img src="assetts/ITunes.png" alt="iTunes">
         </div>
 
-        <!-- Episode title in Boogaloo font -->
+        <!-- Episode title in Oswald font -->
         <div class="nb-item ep1-episode-title">
-          Surveilance, Fraud, and Bike Lanes—Oh My!
+          Surveillance, Fraud, and Bikers - Oh My!
+          <div class="ep1-episode-location">San Mateo, California</div>
         </div>
 
       </div><!-- /.nb-page-left -->
@@ -386,7 +397,7 @@
         <!-- Panel: Vibes -->
         <div class="ep1-panel" id="panel-vibes">
           <div class="ep1-vibecheck-wrap">
-            <div class="vibecheck-title"><img src="photo_assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
+            <div class="vibecheck-title"><img src="assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
             <table class="vibecheck-grid">
               <thead>
                 <tr>
@@ -421,7 +432,7 @@
         <!-- Panel: Money — populated from data/ep1_money.csv — shown by default -->
         <div class="ep1-panel active" id="panel-money">
           <div class="ep1-money-wrap">
-            <div class="money-title"><img src="photo_assetts/ByTheNumbers.png" alt="By the Numbers" style="width:60%; display:block; margin:0 auto;"></div>
+            <div class="money-title"><img src="assetts/ByTheNumbers.png" alt="By the Numbers" style="width:60%; display:block; margin:0 auto;"></div>
             <div class="ep1-money-scroll">
               <table class="money-grid">
                 <thead>
@@ -443,7 +454,7 @@
     </div><!-- /.notebook-overlay -->
   </div><!-- /.notebook-wrap -->
 
-  <a href="index.html"><img src="photo_assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+  <a href="index.html"><img src="assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
 
 </div>
 
