@@ -6,76 +6,91 @@
   <title>About — Just Do The Right Thing</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Outfit — body text */
     @font-face {
       font-family: 'Outfit';
       src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
+    /* VibeCheck — section headings */
     @font-face {
-      font-family: 'Chicle';
-      src: url('assetts/Chicle/Chicle-Regular.ttf') format('truetype');
+      font-family: 'VibeCheck';
+      src: url('assetts/VibeCheck.ttf') format('truetype');
     }
 
-    /* Text blocks on each page */
+    /* Text block shared styles */
     .about-left-text,
     .about-right-text {
       position: absolute;
       top: 4%;
-      left: 4%;
-      width: 92%;
+      left: 12%;
+      width: 84%;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.85cqw;
       color: #333;
       line-height: 1.5;
       pointer-events: none;
     }
 
-    /* Left page text shifted right to clear the blue ruled edge */
-    .about-left-text {
-      left: 12%;
-      width: 84%;
+    /* Left has 4 sections — slightly smaller to fit */
+    .about-left-text { font-size: 0.82cqw; }
+
+    /* Right is Reporting Recipe only — room for bigger text */
+    .about-right-text {
+      left: 5%;
+      width: 90%;
+      font-size: 0.88cqw;
     }
 
-    /* Paragraph spacing */
-    .about-left-text p,
-    .about-right-text p {
-      margin-bottom: 1em;
-    }
+    /* Paragraph spacing — tighter on left to fit more content */
+    .about-left-text p { margin-bottom: 0.3em; }
+    .about-right-text p { margin-bottom: 0.7em; }
 
-    /* Section headings */
+    /* VibeCheck section headings — blue paper texture matching other pages */
     .about-heading {
       display: block;
-      font-family: 'Chicle', cursive;
-      font-size: 1.6cqw;
-      color: #8b1a1a;
-      margin-top: 0.6em;
+      font-family: 'VibeCheck', serif;
+      font-size: 1.8cqw;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-top: 0.7em;
       margin-bottom: 0.2em;
     }
     .about-heading:first-child { margin-top: 0; }
 
-    .about-page-title {
-      display: block;
-      font-family: 'Chicle', cursive;
-      font-size: 2.2cqw;
-      color: #8b1a1a;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.3em;
+    /* Numbered recipe list */
+    .recipe-list {
+      padding-left: 1.4em;
+      margin: 0.4em 0 0.7em;
+    }
+    .recipe-list li {
+      margin-bottom: 0.5em;
     }
 
-    .about-intro-heading {
-      display: block;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1cqw;
-      font-weight: bold;
-      color: #333;
-      margin-bottom: 0.8em;
+    /* Nested sub-list for "Use our code" step */
+    .recipe-list ul {
+      list-style: disc;
+      padding-left: 1.2em;
+      margin-top: 0.3em;
     }
 
-    /* Mobile: font sizes scale up since vw is smaller relative to text */
+    /* Footnotes — smaller, slightly muted */
+    .about-footnotes {
+      font-size: 0.72cqw;
+      color: #555;
+      margin-top: 0.8em;
+      border-top: 1px solid rgba(0,0,0,0.15);
+      padding-top: 0.5em;
+    }
+    .about-footnotes p { margin-bottom: 0.4em; }
+
+    /* Mobile */
     @media (max-width: 768px) {
       .about-left-text,
-      .about-right-text { font-size: 3.2cqw; }
-      .about-heading { font-size: 4.2cqw; }
+      .about-right-text { font-size: 3cqw; }
+      .about-heading     { font-size: 4.5cqw; }
+      .about-footnotes   { font-size: 2.4cqw; }
     }
   </style>
 </head>
@@ -88,32 +103,61 @@
 
     <div class="notebook-overlay">
 
-      <!-- Left page — problem + solution -->
+      <!-- Left page — Purpose, Problem, Solution, Deets -->
       <div class="nb-page nb-page-left">
 
         <div class="about-left-text">
-          <span class="about-page-title">About This Project</span>
-          <p class="about-intro-heading">Just because local news is important, does not mean it needs to be boring!</p>
+
+          <span class="about-heading">Purpose</span>
+          <p>This project tries to answer a question we faced time and time again at Stanford: what does it look like to make journalism as human as possible in the age of AI?</p>
+          <p>To us, this means bringing journalism back to its storytelling roots. To the whisper networks of rebellions. To the gossip circles of women's movements. To the town criers ringing their bells.</p>
 
           <span class="about-heading">Problem</span>
-          <p>City hall meetings are important public forums, but most papers no longer have the resources to send reporters in person — causing media to under-report on these vital local institutions. Even when they can send reporters, they often write up a dry, 200-word summary of the meeting easily duplicated by AI.</p>
+          <p>City hall meetings are vital public forums, but most local outlets no longer have the resources to send reporters to them. When reporters do cover the smaller city halls, they often produce dry summaries that nobody wants to read — summaries that may keep AI models up to date but do little to help community members find the information they didn't know they needed.</p>
 
           <span class="about-heading">Solution</span>
-          <p>Our master's thesis tests one possible solution to this painful paradigm and answers one question we kept coming back to throughout our nine months at Stanford: what would it look like to make journalism as human as possible in the age of A.I.?</p>
-          <p>To us, this means bringing journalism back to its storytelling roots. If we want people to engage with local journalism, let's make local journalism incredibly fun to engage with. Gen-Z audiences are interested in audio-visual content, they get news on social media, and they want more personality and transparency.</p>
-          <p>Modeled on our favorite road trip podcasts (Crime Junkies and Normal Gossip) "Just Do The Right Thing" tells you about your city council meetings the way that your funniest friend would.</p>
-          <p>We also know that journalism needs to be more than fun. It needs to be accurate. It needs to help people get the information they need to be effective members of society.</p>
-          <p>In come the A.I. tools — today we have the ability to link primary source materials to help interested readers explore the "receipts" on their own. We built this website to help listeners quickly fact-check our work — and get more details for trivia nights and friendly debates.</p>
-          <p>We believe that A.I. should enable local newsrooms to invest resources in person-to-person reporting and human-centered storytelling. These tools in no way replaced our reporting or informed our editorial framing. They helped us move faster and deliver more.</p>
+          <p>Good journalism balances three things: accuracy, speed, and engagement. Local papers have over-indexed on the first two. As editorial resources dried up, engagement became risky. They believed — rationally and rightly — that giving their audiences accurate information swiftly and frequently would be the best way to compete in the digital age.</p>
+          <p>We have a different bet. We work with AI to help us cover accuracy and speed, so that we can lean into the joy of storytelling. Just because local news is important does not mean it needs to be boring. In fact, if it wants to survive, it can't be!</p>
+
+          <span class="about-heading">Deets</span>
+          <p>Modeled on our favorite road trip podcasts (Crime Junkies and Normal Gossip), <em>Just Do The Right Thing</em> tells you about your city council meetings the way that your friend would.</p>
+          <p>But journalism needs to be more than just fun — it needs to help you get the information you need to be an effective member of society. Enter AI. The tools we have today allow us to quickly and easily give you the "receipts" you need to check our work or dive deeper into the topic. Whether you need to know how much they're spending on the park, want to figure out who to vote for, or just gotta win an argument with your neighbor, you have the facts at your fingertips.</p>
+          <p>The receipts we have today are just an initial offering. If you have ideas for more, or for edits, send them our way!</p>
+
         </div>
 
       </div><!-- /.nb-page-left -->
 
-      <!-- Right page — the deets -->
+      <!-- Right page — Reporting Recipe only -->
       <div class="nb-page nb-page-right">
 
         <div class="about-right-text">
+
           <span class="about-heading">Reporting Recipe</span>
+          <p>How would you do this? If you were a local newsroom looking to have a little fun, try our recipe:</p>
+          <ol class="recipe-list">
+            <li>Go to the meeting and record it — good audio quality matters. Take notes. Talk to people.*</li>
+            <li>Transcribe the recording. We used Descript.</li>
+            <li>Write an awesome script.**</li>
+            <li>Find a friend to share your story with — prep them or don't.</li>
+            <li>Use our code (or your own) to:
+              <ul>
+                <li>Pull out key numbers (usually budgets)</li>
+                <li>Separate public comments into pro/con</li>
+                <li>Summarize themes from each side</li>
+                <li>Find the final policy decision and options presented</li>
+              </ul>
+            </li>
+            <li>Check everything. Human-check adds maybe 1 hour — use it.***</li>
+            <li>Link timestamps to the council's YouTube video so listeners can verify the robot's work.</li>
+          </ol>
+
+          <div class="about-footnotes">
+            <p>* You can get audio from the council's website, but you must watch or attend the whole meeting. This is not a shortcut for lazy reporting — it's a recipe for better content.</p>
+            <p>** Think about what made you laugh, angry, or surprised. Good comedy is full of surprises, and so are good city council meetings.</p>
+            <p>*** Whenever a human column has content, the code uses the human check over its original output.</p>
+          </div>
+
         </div>
 
       </div><!-- /.nb-page-right -->

@@ -12,8 +12,13 @@
     }
 
     @font-face {
-      font-family: 'Chicle';
-      src: url('assetts/Chicle/Chicle-Regular.ttf') format('truetype');
+      font-family: 'VibeCheck';
+      src: url('assetts/VibeCheck.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'Outfit';
+      src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
     .home-episodes-header {
@@ -34,7 +39,7 @@
       left: 14%;
       width: 80%;
       font-family: 'TheGirlNextDoor', cursive;
-      font-size: 20px;
+      font-size: 1.4cqw;
       color: #333;
       line-height: 1.7;
       pointer-events: none;
@@ -58,11 +63,97 @@
       display: block;
     }
 
+    /* AI? disclosure button — left page, beside the polaroids */
+    .ai-disclosure-btn {
+      position: absolute;
+      top: 47%;
+      left: 80%;
+      font-family: 'VibeCheck', serif;
+      font-size: 1.1cqw;
+      color: #1a3a8f;
+      background: transparent;
+      border: 1.5px solid #1a3a8f;
+      border-radius: 50%;
+      padding: 0.7cqw 0.9cqw;
+      line-height: 1;
+      cursor: pointer;
+      pointer-events: auto;
+      opacity: 1;
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 50;
+    }
+    .ai-disclosure-btn:hover { opacity: 1; transform: scale(1.08); }
+
+    /* Modal overlay — covers the full viewport */
+    .ai-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .ai-modal-overlay.open { display: flex; }
+
+    /* Modal card — notebook paper aesthetic */
+    .ai-modal-box {
+      position: relative;
+      background: #f8f4ec;
+      border: 1.5px solid rgba(0,0,0,0.15);
+      border-radius: 4px;
+      max-width: 540px;
+      width: 90%;
+      max-height: 80vh;
+      padding: 2rem 2.4rem;
+      overflow-y: auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+    }
+
+    /* × close button */
+    .ai-modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      font-size: 1.6rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #555;
+      line-height: 1;
+      padding: 0;
+    }
+    .ai-modal-close:hover { color: #111; }
+
+    /* Modal title — VibeCheck with texture */
+    .ai-modal-title {
+      display: block;
+      font-family: 'VibeCheck', serif;
+      font-size: 2rem;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    /* Modal body — Outfit */
+    .ai-modal-body {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.65;
+    }
+    .ai-modal-body p { margin-bottom: 0.9em; }
+
     /* Title text — left-justified, takes remaining space */
     .home-ep1-title {
-      font-family: 'Chicle', cursive;
-      font-size: 2.7cqw;
-      color: #8b1a1a;
+      font-family: 'VibeCheck', serif;
+      font-size: 1.9cqw;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       line-height: 1.3;
       text-align: left;
     }
@@ -85,7 +176,7 @@
           <img src="assetts/Title_New.png" alt="Just Do The Right Thing">
         </div>
 
-        <p class="home-tagline">We're here to fill you in on the latest city hall drama. From one bestie to another.</p>
+        <p class="home-tagline">We're here to fill you in on the latest city hall drama — from one bestie to another.</p>
 
         <!-- Both polaroids grouped — hover and click as one unit -->
         <div class="nb-item team-polaroid-group" data-href="team.html">
@@ -101,6 +192,9 @@
           <img src="assetts/Stanford2.PNG" alt="Stanford">
         </div>
 
+        <!-- AI disclosure trigger — beside the polaroids -->
+        <button class="ai-disclosure-btn" onclick="document.getElementById('ai-modal').classList.add('open')" aria-label="AI Disclosures">AI?</button>
+
       </div><!-- /.nb-page-left -->
 
       <!-- Right page container -->
@@ -114,7 +208,7 @@
         <div class="nb-item home-ep1-group" data-href="episode1.html">
           <img src="assetts/Star_Sticker.png" alt="" class="home-ep1-stars">
           <div class="home-ep1-title">
-            San Mateo: Surveillance, Fraud, and Bikers - Oh My!
+           Surveillance Fraud and Bikers - Oh My!
           </div>
         </div>
 
@@ -122,6 +216,7 @@
           <img src="assetts/Radio_Sticker.png" alt="Tune in">
           <p class="tune-in">See where the radio takes you!</p>
         </div>
+
 
       </div><!-- /.nb-page-right -->
 
@@ -134,5 +229,21 @@
 </div>
 
 <script src="script.js"></script>
+
+<!-- AI Disclosure modal — triggered by the AI? button on the right notebook page -->
+<div id="ai-modal" class="ai-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ai-modal-box">
+    <button class="ai-modal-close" onclick="document.getElementById('ai-modal').classList.remove('open')" aria-label="Close">×</button>
+    <span class="ai-modal-title">AI Disclosures</span>
+    <div class="ai-modal-body">
+      <p>AI was not used in the ideation or drafting phases for any work. The idea for the project was formed over pasta on a Thursday night and refined through meetings with our advisors (shout out to Serdar Tumgoren and Janine Zacharia!). The design for the website was collaged over and over again in Canva and critiqued by dear friends. The script was drafted in a Word document and hotly debated in Ella's living room. The video edits came straight from Brianna's noggin.</p>
+      <p>The images on this site come from a combination of Adobe Stock (thanks for the wood), Nano Bananana (thanks for the tea, the notebook, the titles, and the watercolors), and our camera rolls + ProCreate skills.</p>
+      <p>The episode summary was AI-generated using the transcript from our final cut. We asked it to give us 5 options for summaries, each about 100 words. We edited the final version.</p>
+      <p>Ella used Claude to make all the HTML. After 10 weeks of vibe coding, Ella has gained a loose understanding of HTML.</p>
+      <p>Claude and spaCy worked together to make the Money, Vibes, and Decisions tabs possible. This process was also a long journey of trial and error. Details of this workflow and the fact-checking elements can be found here: [LINK]</p>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

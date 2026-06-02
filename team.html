@@ -11,50 +11,69 @@
       src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
-    /* Photo — top-left of each page */
-    .team-photo {
+    /* ── LEFT PAGE: two overlapping polaroid-style photos ── */
+
+    /* Invisible group that fills the left page so both photos anchor together */
+    .team-polar-group {
       position: absolute;
-      top: 3%;
-      left: 8%;
-      width: 55%;
+      top: 5%;
+      left: 5%;
+      width: 88%;
+      height: 88%;
       pointer-events: none;
     }
-    .team-photo img {
+
+    /* Ella's photo — behind, tilted left */
+    .team-ella-polar {
+      position: absolute;
+      top: 8%;
+      left: 10%;
+      width: 58%;
+      transform: rotate(-4deg);
+      z-index: 1;
+    }
+    .team-ella-polar img {
       width: 100%;
       display: block;
-      object-fit: cover;
+      object-fit: contain;
     }
 
-    /* Name + bio — below the photo */
+    /* Brie's photo — in front, tilted right */
+    .team-brie-polar {
+      position: absolute;
+      top: 40%;
+      left: 45%;
+      width: 58%;
+      transform: rotate(3.5deg);
+      z-index: 2;
+    }
+    .team-brie-polar img {
+      width: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* ── RIGHT PAGE: combined team bio ── */
+
     .team-bio {
       position: absolute;
-      top: 48%;
+      top: 6%;
       left: 6%;
-      width: 90%;
+      width: 88%;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.85cqw;
+      font-size: 1.2cqw;
       color: #333;
-      line-height: 1.5;
+      line-height: 1.7;
       pointer-events: none;
-    }
-
-    .team-name {
-      display: block;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.5cqw;
-      font-weight: 700;
-      color: #1a4fa8;
-      margin-bottom: 0.3em;
     }
 
     .team-bio p {
-      margin-bottom: 0.6em;
+      margin-bottom: 1em;
     }
 
-    /* Mobile */
+    /* Mobile — bump font size so it stays legible on small screens */
     @media (max-width: 768px) {
-      .team-bio  { font-size: 3cqw; }
-      .team-name { font-size: 4cqw; }
+      .team-bio  { font-size: 3.2cqw; }
     }
   </style>
 </head>
@@ -67,30 +86,31 @@
 
     <div class="notebook-overlay">
 
-      <!-- Left page — Brianna photo + bio -->
+      <!-- Left page — both polaroid photos stacked together -->
       <div class="nb-page nb-page-left">
 
-        <div class="team-photo">
-          <img src="assetts/Brie.PNG" alt="Brianna">
-        </div>
-
-        <div class="team-bio">
-          <span class="team-name">Brianna</span>
-          <p>Brianna Sosa grew up in Virginia and began her professional career as a ballet dancer at 17, performing with the Washington Ballet and the Miami City Ballet. After several years of dancing, she pursued a B.A. in Media Studies from the University of Virginia, focusing her coursework on journalism. During her time at UVA, she reported and produced multimedia work for UVA's news platform, WUVA, and radio segments for WTJU 91.1FM. After graduation, Brianna lived in Washington D.C., where she worked at the Federal Bureau of Investigation for three years. She hopes to leverage her investigative background to conduct human-centered reporting that uncovers wrongdoing, legitimizes victims' voices, and holds people and institutions accountable.</p>
+        <div class="team-polar-group">
+          <!-- Ella behind, rotated left -->
+          <div class="team-ella-polar">
+            <img src="assetts/Ella.PNG" alt="Ella">
+          </div>
+          <!-- Brie in front, rotated right -->
+          <div class="team-brie-polar">
+            <img src="assetts/Brie.PNG" alt="Brianna">
+          </div>
         </div>
 
       </div><!-- /.nb-page-left -->
 
-      <!-- Right page — Ella photo + bio -->
+      <!-- Right page — combined team bio -->
       <div class="nb-page nb-page-right">
 
-        <div class="team-photo">
-          <img src="assetts/Ella.PNG" alt="Ella">
-        </div>
-
         <div class="team-bio">
-          <span class="team-name">Ella</span>
-          <p>I graduated from Colby College in 2019 with a BA in Global Studies and a minor in Creative Writing. After graduating, I headed to DC and, after a brief internship on the hill, I started my career researching sustainable transportation at the World Resources Institute. At Stanford, I spent my time figuring out how to report and asking smart people what comes next for journalists living in an AI world.</p>
+          <p>We met pursuing a master's in journalism at Stanford where we fell head over heels for local news.</p>
+          <p>Neither of us started out in the news business. Brianna spent her early career in ballet studios and FBI offices. Meanwhile, Ella split her early twenties between school bus depots and multinational non-profits.</p>
+          <p>We bonded over a love for difficult data, good gossip, and novel news formats, and together, we created Just Do the Right Thing.</p>
+          <p>We know that local journalism helps us build better communities by keeping you up to date on the mundane policies and practices that shape your daily life. Because seriously, how are we supposed to build a better world if we don't know what's going on in this one?</p>
+          <p>Brianna wrote the script, edited the video, and told Ella when the website looked bad. Ella co-wrote the script, analyzed the transcripts, designed the website, and used Claude to make it all real.</p>
         </div>
 
       </div><!-- /.nb-page-right -->

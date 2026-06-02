@@ -6,3 +6,4 @@ When I ask for youtube links, go to this link and take inspiration from this cod
 Use "Girl Next Door" font in "assetts" for all long blocks of text. 
 ALWAYS check the assetts folder when i ask to add something before adding text.
 Use "Outfit" font for all CSV imports on episode pages.
+IF you want to make an agent, ask for permission, say you are making an agent, explain why you need it. 

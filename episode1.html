@@ -27,7 +27,13 @@
       src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
-    /* Episode title displayed on the left notebook page, above the film strip */
+    /* VibeCheck display font — used for all section and episode titles */
+    @font-face {
+      font-family: 'VibeCheck';
+      src: url('assetts/VibeCheck.ttf') format('truetype');
+    }
+
+    /* Episode title displayed on the left notebook page */
     .ep1-episode-title {
       position: absolute;
       top: 3%;
@@ -35,18 +41,14 @@
       transform: translateX(-50%);
       width: 80%;
       text-align: center;
-      font-family: 'Oswald', sans-serif;
       font-size: 2.2cqw;
-      font-variant: small-caps;
-      color: #67859f;
       line-height: 1.3;
       pointer-events: none;
     }
     /* Subtitle under the episode title */
     .ep1-episode-location {
-      font-size: 1.55cqw;
+      font-size: 1.4cqw;
       font-style: italic;
-      font-variant: small-caps;
       margin-top: 0.3em;
       letter-spacing: 0.04em;
     }
@@ -54,12 +56,12 @@
     /* Episode description — below the film strip and platform icons */
     .ep1-description {
       position: absolute;
-      top: 52%;
+      top: 60%;
       left: 15%;
       width: 82%;
       font-family: 'Outfit', cursive;
-      font-size: 1.3cqw;
-      color: #0c072ab9;
+      font-size: 1cqw;
+      color: #120079b9;
       line-height: 1.6;
       opacity: 0.78;
       pointer-events: none;
@@ -67,7 +69,7 @@
 
     .ep1-film {
       left: 55%;
-      top: 36%;
+      top: 42%;
       transform: translate(-50%, -50%);
       width: 65%;
     }
@@ -146,17 +148,22 @@
       pointer-events: none;
     }
 
-    /* Main title */
+    /* Main title — text replaces the old PNG asset */
     .vibecheck-title {
-      font-size: 0;
-      line-height: 0;
+      font-size: 3.2cqw;
+      line-height: 1.1;
       text-align: center;
-      margin: 0;
+      margin: 0 0 0.3em;
       padding: 0;
     }
-    .vibecheck-title img {
-      display: block;
-      margin: 0 auto;
+
+    /* VibeCheck font titles — blue paper texture clipped to letterforms */
+    .vibe-title {
+      font-family: 'VibeCheck', serif;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
     }
     .vibecheck-grid {
       margin-top: 0;
@@ -191,7 +198,6 @@
     }
 
     /* ── TAB BUTTONS ── */
-    /* Row of three buttons sitting in the gap between the video and the content panels */
     .ep1-tab-buttons {
       position: absolute;
       top: 43%;
@@ -199,7 +205,7 @@
       width: 90%;
       display: flex;
       gap: 0;
-      pointer-events: auto;  /* parent .nb-page has pointer-events:none, re-enable here */
+      pointer-events: auto;
       z-index: 15;
     }
 
@@ -219,16 +225,8 @@
       text-transform: uppercase;
     }
 
-    /* Collapse the shared border between adjacent tabs */
-    .ep1-tab + .ep1-tab {
-      margin-left: -1.5px;
-    }
-
-    .ep1-tab:hover {
-      background: rgba(26, 58, 143, 0.1);
-    }
-
-    /* Active tab gets a filled look and underline to signal selection */
+    .ep1-tab + .ep1-tab { margin-left: -1.5px; }
+    .ep1-tab:hover { background: rgba(26, 58, 143, 0.1); }
     .ep1-tab.active {
       background: rgba(26, 58, 143, 0.18);
       text-decoration: underline;
@@ -236,16 +234,11 @@
     }
 
     /* ── CONTENT PANELS ── */
-    /* Only the panel with .active is shown; toggled by JS */
-    .ep1-panel {
-      display: none;
-    }
-    .ep1-panel.active {
-      display: block;
-    }
+    .ep1-panel { display: none; }
+    .ep1-panel.active { display: block; }
 
     /* Votes panel — mirrors vibecheck-wrap positioning */
-    .ep1-votes-wrap {
+    .ep1-decisions-wrap {
       position: absolute;
       top: 49%;
       left: 5%;
@@ -255,26 +248,23 @@
       pointer-events: none;
     }
 
-    /* Section title for Votes — matches the Oswald episode title style */
-    .votes-title {
+    /* Section title for Votes */
+    .decisions-title {
       text-align: center;
-      font-family: 'Oswald', sans-serif;
-      font-size: 2.2cqw;
-      font-variant: small-caps;
-      color: #67859f;
-      line-height: 1.3;
+      font-size: 3.2cqw;
+      line-height: 1.1;
       margin-bottom: 0.6%;
     }
 
     /* Votes table */
-    .votes-grid {
+    .decisions-grid {
       width: 100%;
       border-collapse: collapse;
       font-size: 1cqw;
       line-height: 1.3;
       color: #1a3a8f;
     }
-    .votes-grid thead th {
+    .decisions-grid thead th {
       border: 1.5px solid #1a3a8f;
       padding: 0.5% 1%;
       text-align: center;
@@ -284,7 +274,7 @@
       color: #1a3a8f;
     }
     /* Outfit for CSV data cells */
-    .votes-grid tbody td {
+    .decisions-grid tbody td {
       border: 1px solid #1a3a8f;
       padding: 0.5% 1%;
       vertical-align: top;
@@ -304,32 +294,33 @@
       pointer-events: none;
     }
 
-    /* Money title image sizing */
-    .money-title img {
-      display: block;
-      margin: 0 auto;
+    /* Money title — text replaces the old PNG asset */
+    .money-title {
+      font-size: 3.2cqw;
+      text-align: center;
+      margin-bottom: 0.3em;
     }
 
     /* Scrollable wrapper for the decisions (votes) table */
-    .ep1-votes-scroll {
+    .ep1-decisions-scroll {
       max-height: 26vh;
       overflow-y: auto;
       pointer-events: auto;
     }
-    .ep1-votes-scroll::-webkit-scrollbar        { width: 4px; }
-    .ep1-votes-scroll::-webkit-scrollbar-track  { background: transparent; }
-    .ep1-votes-scroll::-webkit-scrollbar-thumb  { background: rgba(26,58,143,0.35); border-radius: 2px; }
+    .ep1-decisions-scroll::-webkit-scrollbar        { width: 4px; }
+    .ep1-decisions-scroll::-webkit-scrollbar-track  { background: transparent; }
+    .ep1-decisions-scroll::-webkit-scrollbar-thumb  { background: rgba(26,58,143,0.35); border-radius: 2px; }
 
     /* Sticky header row for decisions table */
-    .votes-grid thead th {
+    .decisions-grid thead th {
       position: sticky;
       top: 0;
-      background: #f5f0e8;
+      background: #6758eb;
       z-index: 1;
     }
 
     /* Full-width section divider rows ("Proposals", "Next Steps") */
-    .votes-section-header {
+    .decisions-section-header {
       font-family: 'Times New Roman', Times, serif;
       font-weight: bold;
       font-size: 1cqw;
@@ -382,7 +373,7 @@
 
     /* Prevent empty tbody from rendering a visible bordered box before data loads */
     #by-numbers-body:empty,
-    #votes-body:empty,
+    #decisions-body:empty,
     #vibe-check-body:empty {
       display: none;
     }
@@ -451,10 +442,10 @@
           Today we dig into San Mateo's most divisive stretch of asphalt: the Humboldt bike lane. We break down the four-year feud where residents are harassing cyclists and one neighbor built a homemade surveillance network to prove his point. The data is a mess, the politics are messier. Grab your headphones and hear what happens when you take away 200 parking spots.
         </div>
 
-        <!-- Episode title in Oswald font -->
-        <div class="nb-item ep1-episode-title">
+        <!-- Episode title in VibeCheck font -->
+        <div class="nb-item ep1-episode-title vibe-title">
           Surveillance, Fraud, and Bikers - Oh My!
-          <div class="ep1-episode-location">San Mateo, California</div>
+          <div class="ep1-episode-location vibe-title">San Mateo, California</div>
         </div>
 
       </div><!-- /.nb-page-left -->
@@ -474,17 +465,17 @@
           <div id="ep1-ytplayer"></div>
         </div>
 
-        <!-- Tab buttons: switch between Money, Vibes, and Votes panels below -->
+        <!-- Tab buttons: switch between Money, Vibes, and Decisions panels below -->
         <div class="ep1-tab-buttons">
           <button class="ep1-tab active" data-tab="money">Money</button>
           <button class="ep1-tab" data-tab="vibes">Vibes</button>
-          <button class="ep1-tab" data-tab="votes">Decisions</button>
+          <button class="ep1-tab" data-tab="decisions">Decisions</button>
         </div>
 
         <!-- Panel: Vibes -->
         <div class="ep1-panel" id="panel-vibes">
           <div class="ep1-vibecheck-wrap">
-            <div class="vibecheck-title"><img src="assetts/VibeCheckTitle.png" alt="Vibe Check" style="width:60%; display:block; margin:0 auto;"></div>
+            <div class="vibecheck-title vibe-title">Vibe Check</div>
             <div class="ep1-vibes-scroll">
               <table class="vibecheck-grid">
                 <thead>
@@ -500,22 +491,22 @@
           </div>
         </div>
 
-        <!-- Panel: Votes — populated from data/ep1_votes.csv -->
-        <div class="ep1-panel" id="panel-votes">
-          <div class="ep1-votes-wrap">
-            <div class="votes-title">DECISIONS</div>
-            <div class="ep1-votes-scroll">
-              <table class="votes-grid">
-                <tbody id="votes-body"></tbody>
+        <!-- Panel: Decisions -->
+        <div class="ep1-panel" id="panel-decisions">
+          <div class="ep1-decisions-wrap">
+            <div class="decisions-title vibe-title">Decisions</div>
+            <div class="ep1-decisions-scroll">
+              <table class="decisions-grid">
+                <tbody id="decisions-body"></tbody>
               </table>
             </div>
           </div>
         </div>
 
-        <!-- Panel: Money — populated from data/ep1_money.csv — shown by default -->
+        <!-- Panel: Money — shown by default -->
         <div class="ep1-panel active" id="panel-money">
           <div class="ep1-money-wrap">
-            <div class="money-title"><img src="assetts/ByTheNumbers.png" alt="By the Numbers" style="width:60%; display:block; margin:0 auto;"></div>
+            <div class="money-title vibe-title">By The Numbers</div>
             <div class="ep1-money-scroll">
               <table class="money-grid">
                 <tbody id="by-numbers-body"></tbody>
@@ -562,7 +553,7 @@
   document.addEventListener('DOMContentLoaded', async () => {
     /* Load all four CSVs in parallel; fall back to empty tables on any error */
     try {
-      const [meta, vibes, votes, money] = await Promise.all([
+      const [meta, vibes, decisions, money] = await Promise.all([
         fetchCSV('data/ep1_meta.csv'),
         fetchCSV('data/ep1_vibecheck.csv'),
         fetchCSV('data/ep1_votes.csv'),
@@ -570,11 +561,11 @@
       ]);
       renderVibeCheckMeta(meta);
       renderVibeCheck(vibes);
-      renderVotes(votes);
+      renderDecisions(decisions);
       renderByNumbers(money);
     } catch (e) {
       renderVibeCheck([]);
-      renderVotes([]);
+      renderDecisions([]);
       renderByNumbers([]);
     }
 

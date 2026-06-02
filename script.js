@@ -80,15 +80,15 @@ function renderVibeCheck(data) {
    CSV columns: Proposals (text), "" (timestamp — header is blank)
    Rows where the timestamp column is empty are section headers and render
    as a full-width merged cell. All other rows get a clickable timestamp. */
-function renderVotes(data) {
-  const tbody = document.getElementById('votes-body');
+function renderDecisions(data) {
+  const tbody = document.getElementById('decisions-body');
   if (!tbody) return;
   tbody.innerHTML = '';
 
   /* "Proposals" is the CSV column header so it doesn't appear as a data row —
      inject it manually as the first section header */
   const firstHeader = document.createElement('tr');
-  firstHeader.innerHTML = `<td colspan="2" class="votes-section-header">Proposals</td>`;
+  firstHeader.innerHTML = `<td colspan="2" class="decisions-section-header">Proposals</td>`;
   tbody.appendChild(firstHeader);
 
   data.forEach(d => {
@@ -98,7 +98,7 @@ function renderVotes(data) {
 
     if (!ts) {
       /* Section header row (e.g. "Next Steps") */
-      tr.innerHTML = `<td colspan="2" class="votes-section-header">${text}</td>`;
+      tr.innerHTML = `<td colspan="2" class="decisions-section-header">${text}</td>`;
     } else {
       /* Decision row with clickable timestamp */
       const secs = timeToSeconds(ts);

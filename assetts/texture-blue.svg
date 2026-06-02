@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300">
+  <!-- feTurbulence generates fractal noise.
+       luminanceToAlpha converts noise brightness to an alpha mask.
+       feFlood provides the solid blue colour.
+       feComposite clips the blue to the alpha mask — bright noise = opaque blue,
+       dark noise = transparent — creating genuine ink-on-paper texture. -->
+  <filter id="n">
+    <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" result="noise"/>
+    <feColorMatrix in="noise" type="luminanceToAlpha" result="mask"/>
+    <feFlood flood-color="#b82020" result="blue"/>
+    <feComposite in="blue" in2="mask" operator="in"/>
+  </filter>
+  <rect width="300" height="300" filter="url(#n)"/>
+</svg>
