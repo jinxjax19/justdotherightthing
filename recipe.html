@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporting Recipe — Just Do The Right Thing</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    @font-face {
+      font-family: 'Outfit';
+      src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
+    }
+
+    @font-face {
+      font-family: 'VibeCheck';
+      src: url('assetts/VibeCheck3.ttf') format('truetype');
+    }
+
+    /* Right page — Reporting Recipe */
+    .recipe-text {
+      position: absolute;
+      top: 4%;
+      left: 5%;
+      width: 90%;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.92cqw;
+      color: #333;
+      line-height: 1.6;
+      pointer-events: none;
+    }
+
+    .recipe-text p { margin-bottom: 0.7em; }
+
+    /* VibeCheck heading */
+    .recipe-heading {
+      display: block;
+      font-family: 'VibeCheck', serif;
+      font-size: 2.4cqw;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.4em;
+    }
+
+    /* Numbered list */
+    .recipe-list {
+      padding-left: 1.4em;
+      margin: 0.4em 0 0.7em;
+    }
+    .recipe-list li { margin-bottom: 0.5em; }
+
+    .recipe-list ul {
+      list-style: disc;
+      padding-left: 1.2em;
+      margin-top: 0.3em;
+    }
+
+    /* Footnotes */
+    .recipe-footnotes {
+      font-size: 0.75cqw;
+      color: #555;
+      margin-top: 0.8em;
+      border-top: 1px solid rgba(0,0,0,0.15);
+      padding-top: 0.5em;
+    }
+    .recipe-footnotes p { margin-bottom: 0.4em; }
+
+    /* "← About" back link on left page */
+    .recipe-back-link {
+      position: absolute;
+      top: 4%;
+      left: 10%;
+      font-family: 'VibeCheck', serif;
+      font-size: 1.6cqw;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-decoration: none;
+      pointer-events: auto;
+      opacity: 0.65;
+      transition: opacity 0.15s;
+    }
+    .recipe-back-link:hover { opacity: 1; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .recipe-text      { font-size: 3cqw; }
+      .recipe-heading   { font-size: 5cqw; }
+      .recipe-footnotes { font-size: 2.4cqw; }
+      .recipe-back-link { font-size: 4cqw; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scene">
+
+  <div class="notebook-wrap">
+    <img class="notebook-img" src="assetts/Notebook.png" alt="Open notebook">
+
+    <div class="notebook-overlay">
+
+      <!-- Left page — back link -->
+      <div class="nb-page nb-page-left">
+        <a href="about.html" class="recipe-back-link">← About</a>
+      </div>
+
+      <!-- Right page — Reporting Recipe -->
+      <div class="nb-page nb-page-right">
+
+        <div class="recipe-text">
+
+          <span class="recipe-heading">Reporting Recipe</span>
+          <p>How would you do this? If you were a local newsroom looking to have a little fun, try our recipe:</p>
+          <ol class="recipe-list">
+            <li>Go to the meeting and record it — good audio quality matters. Take notes. Talk to people.*</li>
+            <li>Transcribe the recording. We used Descript.</li>
+            <li>Write an awesome script.**</li>
+            <li>Find a friend to share your story with — prep them or don't.</li>
+            <li>Use our code (or your own) to:
+              <ul>
+                <li>Pull out key numbers (usually budgets)</li>
+                <li>Separate public comments into pro/con</li>
+                <li>Summarize themes from each side</li>
+                <li>Find the final policy decision and options presented</li>
+              </ul>
+            </li>
+            <li>Check everything. Human-check adds maybe 1 hour — use it.***</li>
+            <li>Link timestamps to the council's YouTube video so listeners can verify the robot's work.</li>
+          </ol>
+
+          <div class="recipe-footnotes">
+            <p>* You can get audio from the council's website, but you must watch or attend the whole meeting. This is not a shortcut for lazy reporting — it's a recipe for better content.</p>
+            <p>** Think about what made you laugh, angry, or surprised. Good comedy is full of surprises, and so are good city council meetings.</p>
+            <p>*** Whenever a human column has content, the code uses the human check over its original output.</p>
+          </div>
+
+        </div>
+
+      </div><!-- /.nb-page-right -->
+
+    </div><!-- /.notebook-overlay -->
+  </div><!-- /.notebook-wrap -->
+
+  <a href="index.html"><img src="assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

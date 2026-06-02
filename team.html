@@ -11,6 +11,27 @@
       src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
 
+    @font-face {
+      font-family: 'VibeCheck';
+      src: url('assetts/VibeCheck3.ttf') format('truetype');
+    }
+
+    /* "About Us" title above the polaroids */
+    .team-page-title {
+      position: absolute;
+      top: 2%;
+      left: 5%;
+      width: 88%;
+      text-align: center;
+      font-family: 'VibeCheck', serif;
+      font-size: 3cqw;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      pointer-events: none;
+    }
+
     /* ── LEFT PAGE: two overlapping polaroid-style photos ── */
 
     /* Invisible group that fills the left page so both photos anchor together */
@@ -88,6 +109,8 @@
 
       <!-- Left page — both polaroid photos stacked together -->
       <div class="nb-page nb-page-left">
+
+        <div class="team-page-title">About Us</div>
 
         <div class="team-polar-group">
           <!-- Ella behind, rotated left -->
