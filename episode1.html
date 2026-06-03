@@ -61,7 +61,7 @@
       width: 82%;
       font-family: 'Outfit', cursive;
       font-size: 1cqw;
-      color: #120079b9;
+      color: #1a4db8;
       line-height: 1.6;
       opacity: 0.78;
       pointer-events: none;
@@ -77,30 +77,15 @@
       transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
     }
 
-    .ep1-spotify,
-    .ep1-youtube,
-    .ep1-itunes {
-      top: 88%;
-      width: 13%;
-      z-index: 10;
-      transition: transform 0.16s ease, filter 0.16s ease;
-    }
-    .ep1-spotify { left: 29%; }
-    .ep1-youtube { left: 45%; }
-    .ep1-itunes  { left: 61%; }
-
-    /* Explicit hover/active animation for platform icons */
-    .ep1-spotify:hover,
-    .ep1-youtube:hover,
-    .ep1-itunes:hover {
-      transform: translateY(-4px) scale(1.08);
-      filter: drop-shadow(3px 8px 18px rgba(0,0,0,0.35));
+    /* YouTube icon overlaid inside the film strip group */
+    .ep1-youtube-overlay {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20% !important;
       z-index: 20;
-    }
-    .ep1-spotify:active,
-    .ep1-youtube:active,
-    .ep1-itunes:active {
-      transform: translateY(-1px) scale(1.02);
+      pointer-events: none;
     }
 
     /* 16:9 video embed — padding-top trick maintains aspect ratio */
@@ -495,21 +480,9 @@
       <!-- Left page -->
       <div class="nb-page nb-page-left">
 
-        <div class="nb-item ep1-film" data-href="#">
+        <!-- Film strip — click to open YouTube video -->
+        <div class="nb-item ep1-film" data-href="https://www.youtube.com/watch?v=NUsSuOZ_5bk">
           <img src="assetts/film_full.PNG" alt="Episode 1">
-        </div>
-
-
-        <div class="nb-item ep1-spotify" data-href="#">
-          <img src="assetts/Spotify.png" alt="Spotify">
-        </div>
-
-        <div class="nb-item ep1-youtube" data-href="#">
-          <img src="assetts/YouTube.png" alt="YouTube">
-        </div>
-
-        <div class="nb-item ep1-itunes" data-href="#">
-          <img src="assetts/ITunes.png" alt="iTunes">
         </div>
 
         <!-- Episode description in Girl Next Door font -->
