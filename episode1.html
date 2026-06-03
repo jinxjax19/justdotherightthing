@@ -135,17 +135,28 @@
       opacity: 0.65;
     }
 
-    /* ── VIBE CHECK TABLE ── */
+    /* ── COMMENTS TABLE ── */
     .ep1-vibecheck-wrap {
       position: absolute;
       top: 49%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
-      font-family: 'Times New Roman', Times, serif;
-      font-weight: bold;
-      opacity: 0.72;          /* looks written on the paper */
+      font-family: 'Outfit', sans-serif;
+      opacity: 0.72;
       pointer-events: none;
+    }
+
+    /* Section header rows inside the comments table — matches Outfit style of data cells */
+    .vibecheck-section-header {
+      font-family: 'Outfit', sans-serif;
+      font-weight: bold !important;
+      font-size: 1cqw;
+      color: #1a3a8f;
+      text-align: center;
+      letter-spacing: 0.05em;
+      border-top: 1.5px solid #1a3a8f !important;
+      padding: 1% 1% !important;
     }
 
     /* Main title — text replaces the old PNG asset */
@@ -301,6 +312,70 @@
       margin-bottom: 0.3em;
     }
 
+    /* Section titles are clickable — override parent pointer-events:none */
+    .money-title,
+    .vibecheck-title,
+    .decisions-title {
+      cursor: pointer;
+      pointer-events: auto;
+      transition: opacity 0.15s;
+    }
+    .money-title:hover,
+    .vibecheck-title:hover,
+    .decisions-title:hover { opacity: 0.65; }
+
+    /* Info modal — same format as the AI disclosure modal */
+    .ep1-info-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+    .ep1-info-overlay.open { display: flex; }
+
+    .ep1-info-box {
+      position: relative;
+      background: #f8f4ec;
+      border: 1.5px solid rgba(0,0,0,0.15);
+      border-radius: 4px;
+      max-width: 540px;
+      width: 90%;
+      max-height: 80vh;
+      padding: 2rem 2.4rem;
+      overflow-y: auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+    }
+
+    .ep1-info-close {
+      position: absolute;
+      top: 0.8rem; right: 1rem;
+      font-size: 1.6rem; background: none; border: none;
+      cursor: pointer; color: #555; line-height: 1; padding: 0;
+    }
+    .ep1-info-close:hover { color: #111; }
+
+    .ep1-info-title {
+      display: block;
+      font-family: 'VibeCheck', serif;
+      font-size: 2rem;
+      background-image: url('assetts/texture-blue.svg');
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .ep1-info-body {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      color: #333;
+      line-height: 1.65;
+    }
+    .ep1-info-body p { margin-bottom: 0.9em; }
+
     /* Scrollable wrapper for the decisions (votes) table */
     .ep1-decisions-scroll {
       max-height: 26vh;
@@ -322,7 +397,7 @@
     /* Full-width section divider rows ("Proposals", "Next Steps") */
     .decisions-section-header {
       font-family: 'Times New Roman', Times, serif;
-      font-weight: bold;
+      font-weight: bold !important;
       font-size: 1cqw;
       color: #1a3a8f;
       text-align: center;
@@ -468,23 +543,16 @@
         <!-- Tab buttons: switch between Money, Vibes, and Decisions panels below -->
         <div class="ep1-tab-buttons">
           <button class="ep1-tab active" data-tab="money">Money</button>
-          <button class="ep1-tab" data-tab="vibes">Vibes</button>
+          <button class="ep1-tab" data-tab="comments">Comments</button>
           <button class="ep1-tab" data-tab="decisions">Decisions</button>
         </div>
 
-        <!-- Panel: Vibes -->
-        <div class="ep1-panel" id="panel-vibes">
+        <!-- Panel: Comments -->
+        <div class="ep1-panel" id="panel-comments">
           <div class="ep1-vibecheck-wrap">
-            <div class="vibecheck-title vibe-title">Vibe Check</div>
+            <div class="vibecheck-title vibe-title" onclick="document.getElementById('info-comments').classList.add('open')">Comments</div>
             <div class="ep1-vibes-scroll">
               <table class="vibecheck-grid">
-                <thead>
-                  <tr>
-                    <th style="width:25%">Supporters</th>
-                    <th style="width:55%">Key Argument</th>
-                    <th style="width:20%">Timestamp</th>
-                  </tr>
-                </thead>
                 <tbody id="vibe-check-body"></tbody>
               </table>
             </div>
@@ -494,7 +562,7 @@
         <!-- Panel: Decisions -->
         <div class="ep1-panel" id="panel-decisions">
           <div class="ep1-decisions-wrap">
-            <div class="decisions-title vibe-title">Decisions</div>
+            <div class="decisions-title vibe-title" onclick="document.getElementById('info-decisions').classList.add('open')">Decisions</div>
             <div class="ep1-decisions-scroll">
               <table class="decisions-grid">
                 <tbody id="decisions-body"></tbody>
@@ -506,7 +574,7 @@
         <!-- Panel: Money — shown by default -->
         <div class="ep1-panel active" id="panel-money">
           <div class="ep1-money-wrap">
-            <div class="money-title vibe-title">By The Numbers</div>
+            <div class="money-title vibe-title" onclick="document.getElementById('info-money').classList.add('open')">By The Numbers</div>
             <div class="ep1-money-scroll">
               <table class="money-grid">
                 <tbody id="by-numbers-body"></tbody>
@@ -522,6 +590,46 @@
 
   <a href="index.html"><img src="assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
 
+</div>
+
+<!-- By The Numbers info modal -->
+<div id="info-money" class="ep1-info-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ep1-info-box">
+    <button class="ep1-info-close" onclick="document.getElementById('info-money').classList.remove('open')">×</button>
+    <span class="ep1-info-title">By The Numbers</span>
+    <div class="ep1-info-body">
+      <p>This section tracks every dollar mentioned during the February 2, 2026 San Mateo City Council meeting on the Humboldt Street bike lane.</p>
+      <p>Cost estimates presented by city staff ranged from street lighting upgrades (about $94,000 for the full Humboldt corridor) to complete bike boulevard alternatives on Idaho or Fremont Streets ($1.37–1.77 million). The city also weighed a protected left-turn project at Poplar and Humboldt at roughly $1 million per intersection.</p>
+      <p>Public commenters added broader fiscal context: the city is projecting a $14 million deficit for the coming year against a $300 million capital backlog, with a reserve fund of about $117 million. Several speakers put the cost of removing the bike lanes at $2 million — more than the original installation.</p>
+      <p>Click any timestamp in the table to jump directly to that moment in the meeting recording.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Comments info modal -->
+<div id="info-comments" class="ep1-info-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ep1-info-box">
+    <button class="ep1-info-close" onclick="document.getElementById('info-comments').classList.remove('open')">×</button>
+    <span class="ep1-info-title">Comments</span>
+    <div class="ep1-info-body">
+      <p>The February 2nd meeting drew 60 public comments on the Humboldt Street bike lane — 49 in support and 11 in opposition.</p>
+      <p><strong>Supporters</strong> argued that the bike lane provides a vital commuting and transit-access route, is a critical part of the Safe Routes to Schools network, and protects cyclists from traffic violence. Several speakers noted that removing the lane would abandon the city's sustainability commitments and waste the infrastructure investment already made.</p>
+      <p><strong>Opponents</strong> focused on the loss of 200 parking spaces, arguing that North Central residents — particularly those without alternative transportation — were unfairly burdened. They also raised concerns about the fairness of the community engagement process and alleged that Community Development Block Grant funds were misused for the installation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Decisions info modal -->
+<div id="info-decisions" class="ep1-info-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ep1-info-box">
+    <button class="ep1-info-close" onclick="document.getElementById('info-decisions').classList.remove('open')">×</button>
+    <span class="ep1-info-title">Decisions</span>
+    <div class="ep1-info-body">
+      <p>San Mateo City Council considered five formal alternatives for the Humboldt Street bike lane at this meeting, ranging from keeping the lane as-is to full removal. Council also weighed supplementary measures including a residential parking permit program, off-site lease parking, and a one-way street conversion proposed by Council Member Styrko-Kodatsky.</p>
+      <p>After deliberation, the Council did not vote to remove or keep the bike lane. Instead, they directed staff to move forward with four near-term actions: street lighting improvements, traffic calming using existing federal grant funding, a residential parking permit program focused on the Humboldt Street area, and enhanced enforcement of abandoned vehicles and speeding.</p>
+      <p>The Council also directed a high-level feasibility study of converting Humboldt Street to one-way before any further community engagement, and asked staff to return with budget appropriation recommendations at a future meeting.</p>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>

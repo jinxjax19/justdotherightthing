@@ -21,59 +21,57 @@ function renderVibeCheckMeta(data) {
   if (date) date.textContent = d.date     || '';
 }
 
-/* Fills the Vibes panel table from ep1_vibecheck.csv
-   CSV columns: Supporters, Key Argument, TimeStamp
-   Rows with an empty Supporters cell are treated as continuations of the
-   previous group; the first row of each group gets a rowspan spanning all
-   its continuation rows so the label merges visually. */
+/* Fills the Comments panel table from ep1_vibecheck.csv
+   CSV format: argument text, timestamp, (optional empty trailing column).
+   Row 1 (CSV header) = "Total Comments Supporting..." count — used as column key.
+   Rows with no timestamp (e.g. "Total Comments Opposing...") render as section headers.
+   Rows with a timestamp render as argument rows.
+   Timestamp is found by pattern-match rather than key name, so a trailing
+   comma (3rd empty column) doesn't break lookup. */
 function renderVibeCheck(data) {
   const tbody = document.getElementById('vibe-check-body');
   if (!tbody) return;
   tbody.innerHTML = '';
+  if (!data.length) return;
 
-  let i = 0;
-  while (i < data.length) {
-    const d = data[i];
-    const supporter = (d.supporters || '').trim();
+  const textKey = Object.keys(data[0])[0];
 
-    /* Count how many following rows belong to this group (empty supporters) */
-    let span = 1;
-    while (i + span < data.length && !(data[i + span].supporters || '').trim()) {
-      span++;
-    }
-
-    /* First row of the group — supporters cell spans all rows in the group */
-    const tr = document.createElement('tr');
-    const secs = timeToSeconds(d.timestamp);
-    const tsCell = secs > 0
-      ? `<td class="ts-link" data-seconds="${secs}" style="width:20%">${d.timestamp}</td>`
-      : `<td style="width:20%">${d.timestamp||''}</td>`;
-    tr.innerHTML = `<td rowspan="${span}" style="width:25%; vertical-align:middle;">${supporter}</td><td style="width:55%">${d.keyargument||''}</td>${tsCell}`;
-    tbody.appendChild(tr);
-
-    /* Continuation rows — no supporters cell (consumed by rowspan above) */
-    for (let j = 1; j < span; j++) {
-      const rd = data[i + j];
-      const tr2 = document.createElement('tr');
-      const secs2 = timeToSeconds(rd.timestamp);
-      const tsCell2 = secs2 > 0
-        ? `<td class="ts-link" data-seconds="${secs2}" style="width:20%">${rd.timestamp}</td>`
-        : `<td style="width:20%">${rd.timestamp||''}</td>`;
-      tr2.innerHTML = `<td style="width:55%">${rd.keyargument||''}</td>${tsCell2}`;
-      tbody.appendChild(tr2);
-    }
-
-    i += span;
+  /* Show the CSV header row text (e.g. "Total Comments Supporting...") as first section header */
+  const firstHeader = (data._rawHeaders && data._rawHeaders[0] || '').trim();
+  if (firstHeader) {
+    const hr = document.createElement('tr');
+    hr.innerHTML = `<td class="vibecheck-section-header">${firstHeader}</td>`;
+    tbody.appendChild(hr);
   }
 
-  /* Pad to minimum row count so the table doesn't look sparse when data is short */
-  const VIBE_ROWS = 9;
-  const rendered = tbody.querySelectorAll('tr').length;
-  for (let p = rendered; p < VIBE_ROWS; p++) {
+  data.forEach(d => {
+    const text = (d[textKey] || '').trim();
+    if (!text) return;
     const tr = document.createElement('tr');
-    tr.innerHTML = '<td>&nbsp;</td><td></td><td></td>';
+
+    /* Section headers: total-count rows or rows ending with "Summary" */
+    /* Skip "...Summary" label rows — they're redundant after the total count header */
+    if (/summary$/i.test(text)) return;
+
+    const isSectionHeader = /^total comments/i.test(text);
+
+    if (isSectionHeader) {
+      tr.innerHTML = `<td class="vibecheck-section-header">${text}</td>`;
+    } else {
+      /* Check for optional timestamp */
+      const ts = (Object.values(d).find(v => /\[?\d{1,2}:\d{2}/.test(v || '')) || '').trim();
+      if (ts) {
+        const secs = timeToSeconds(ts);
+        const tsCell = secs > 0
+          ? `<td class="ts-link" data-seconds="${secs}" style="width:20%">${ts}</td>`
+          : `<td style="width:20%">${ts}</td>`;
+        tr.innerHTML = `<td style="width:80%">${text}</td>${tsCell}`;
+      } else {
+        tr.innerHTML = `<td>${text}</td>`;
+      }
+    }
     tbody.appendChild(tr);
-  }
+  });
 }
 
 /* Fills the Decisions panel table from ep1_votes.csv
@@ -92,8 +90,9 @@ function renderDecisions(data) {
   tbody.appendChild(firstHeader);
 
   data.forEach(d => {
+    const text = (d.proposals || '').trim();
+    if (!text) return; /* skip empty rows */
     const tr  = document.createElement('tr');
-    const text = d.proposals || '';
     const ts   = (d[''] || '').trim();   /* timestamp lives in the blank-named column */
 
     if (!ts) {
@@ -131,8 +130,8 @@ function renderByNumbers(data) {
   const tbody = document.getElementById('by-numbers-body');
   if (!tbody) return;
   tbody.innerHTML = '';
-  /* No padding — show exactly the rows from the CSV */
   data.forEach(d => {
+    if (!d.context && !d.price) return; /* skip empty rows */
     const tr = document.createElement('tr');
     const secs = timeToSeconds(d.timestamp);
     /* Only make the cell a link if we got a valid non-zero time */
@@ -170,16 +169,29 @@ function parseCSVLine(line) {
 }
 
 function parseCSV(text) {
-  const lines = text.trim().split('\n');
+  /* Strip carriage returns (Windows line endings) and blank/comma-only rows */
+  const lines = text.trim().replace(/\r/g, '').split('\n')
+    .filter(l => l.replace(/,/g, '').trim());
   if (lines.length < 2) return [];
+  /* Preserve raw header values before normalising — callers can read _rawHeaders */
+  const rawHeaders = parseCSVLine(lines[0]);
   /* Normalise header names: lowercase, strip spaces */
-  const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().replace(/\s+/g, ''));
-  return lines.slice(1).map(line => {
+  const raw = rawHeaders.map(h => h.toLowerCase().replace(/\s+/g, ''));
+  /* Deduplicate: if two columns share a name (e.g. both empty from a trailing
+     comma), suffix the second one with _1, _2, … so neither value is lost. */
+  const seen = {};
+  const headers = raw.map(h => {
+    if (h in seen) { seen[h]++; return h + '_' + seen[h]; }
+    seen[h] = 0; return h;
+  });
+  const result = lines.slice(1).map(line => {
     const vals = parseCSVLine(line);
     const obj  = {};
     headers.forEach((h, i) => { obj[h] = vals[i] || ''; });
     return obj;
   });
+  result._rawHeaders = rawHeaders;  /* attach so renderers can use original text */
+  return result;
 }
 
 async function fetchCSV(url) {
