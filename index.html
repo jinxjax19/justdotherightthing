@@ -63,12 +63,11 @@
       display: block;
     }
 
-    /* YouTube icon above "learn about the project!" */
     .home-youtube-btn {
       position: absolute;
-      top: 42%;
-      left: -2%;
-      width: 60%;
+      top: 40%;
+      left: -6%;
+      width: 65%;
       text-align: center;
       pointer-events: auto;
     }
@@ -84,7 +83,7 @@
     /* "learn about the project!" label above the Stanford sticker */
     .home-learn-label {
       position: absolute;
-      top: 55%;
+      top: 65%;
       left: -2%;
       width: 55%;
       text-align: center;
@@ -177,6 +176,21 @@
     }
     .ai-modal-body p { margin-bottom: 0.9em; }
 
+    /* Text etched into the wood surface */
+    .wood-etching {
+      position: absolute;
+      bottom: 4%;
+      right: 4%;
+      font-family: 'TheGirlNextDoor', cursive;
+      font-size: 1.1cqw;
+      color: rgba(65, 32, 8, 0.55);
+      text-shadow:
+        0px -1px 1px rgba(30, 10, 0, 0.5),
+        0px  1px 1px rgba(220, 170, 100, 0.4);
+      pointer-events: none;
+      letter-spacing: 0.03em;
+    }
+
     /* Title text — left-justified, takes remaining space */
     .home-ep1-title {
       font-family: 'VibeCheck', serif;
@@ -223,7 +237,7 @@
           <img src="assetts/YouTube.png" alt="Watch on YouTube">
         </a>
 
-        <p class="home-learn-label">learn about the project!</p>
+        <p class="home-learn-label">about the project!</p>
 
         <div class="nb-item stanford-item" data-href="about.html">
           <img src="assetts/Stanford2.PNG" alt="Stanford">
@@ -261,7 +275,38 @@
   </div><!-- /.notebook-wrap -->
 
   <!-- Tea sits on the wood, outside the notebook -->
-  <a href="index.html"><img src="assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+  <div class="blanket-item tea-wrapper">
+
+    <!-- Tea cup: plain img so the browser sizes it reliably (no SVG layout quirks) -->
+    <a class="tea-link" href="index.html">
+      <img src="assetts/Tea.png" alt="Tea">
+    </a>
+
+    <!--
+      Text-only SVG — no image inside, just the curved greeting.
+      Covers the fixed wrapper square so the viewBox (0 0 300 300)
+      maps 1:1 to the CSS 33vw × 33vw box.
+      200° arc: center (150,180) r=85, peak at y=95 (cup rim).
+      large=1 because 200° > 180°; sweep=1 goes up first (clockwise in screen).
+      startOffset="35%" + text-anchor="start" centers "Welcome home!" at 12 o'clock.
+    -->
+    <svg class="tea-arc-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <path id="tea-arc-path" d="M 66,250 A 85,85 0 1 1 234,250"/>
+      </defs>
+      <text class="tea-arc-label"
+            font-family="TheGirlNextDoor, cursive"
+            font-size="13"
+            fill="rgba(55,22,4,0.95)"
+            stroke="rgba(255,245,225,0.92)"
+            stroke-width="2"
+            paint-order="stroke fill"
+            letter-spacing="0">
+        <textPath href="#tea-arc-path" startOffset="35%" text-anchor="start">Welcome home!<tspan dx="10">Want some tea?</tspan></textPath>
+      </text>
+    </svg>
+
+  </div>
 
 </div>
 

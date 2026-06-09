@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     @font-face {
+      font-family: 'TheGirlNextDoor';
+      src: url('assetts/The_Girl_Next_Door/TheGirlNextDoor-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
       font-family: 'Outfit';
       src: url('assetts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
     }
@@ -141,7 +146,22 @@
     </div><!-- /.notebook-overlay -->
   </div><!-- /.notebook-wrap -->
 
-  <a href="index.html"><img src="assetts/Tea.png" alt="Tea" class="blanket-item tea-item"></a>
+  <!-- Tea / home button -->
+  <div class="blanket-item tea-wrapper">
+    <a class="tea-link" href="index.html">
+      <img src="assetts/Tea.png" alt="Tea">
+    </a>
+    <svg class="tea-arc-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <path id="tea-arc-path" d="M 66,250 A 85,85 0 1 1 234,250"/>
+      </defs>
+      <text class="tea-arc-label" font-family="TheGirlNextDoor, cursive" font-size="13"
+            fill="rgba(55,22,4,0.95)" stroke="rgba(255,245,225,0.92)" stroke-width="2"
+            paint-order="stroke fill" letter-spacing="0">
+        <textPath href="#tea-arc-path" startOffset="35%" text-anchor="start">Let's go home and get more tea!</textPath>
+      </text>
+    </svg>
+  </div>
 
 </div>
 

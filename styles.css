@@ -207,14 +207,41 @@ html, body {
 }
 
 /* ── TEA ───────────────────────────────────────────── */
-.tea-item {
+/* Fixed square wrapper — SVG viewBox 300×300 maps 1:1 onto this 33vw × 33vw box */
+.tea-wrapper {
   position: absolute;
-  bottom: 4%;
-  right: 78%;
-  width: 28vw;
-  cursor: pointer;
+  bottom: 1%;
+  right: 76%;
+  width: 33vw;
+  height: 33vw;         /* locked square — never drifts */
   z-index: 5;
+  pointer-events: none; /* children override individually */
+}
+
+/* Tea image: anchored to wrapper bottom, same proportions as original 28vw img */
+.tea-link {
+  position: absolute;
+  bottom: 0;
+  left: 8%;             /* mirrors x=25/300 in the SVG viewBox */
+  width: 84%;           /* mirrors width=250/300 in the SVG viewBox */
+  display: block;
+  cursor: pointer;
   pointer-events: auto;
+}
+.tea-link img {
+  display: block;
+  width: 100%;
+  height: auto;         /* natural aspect ratio, no SVG sizing involved */
+}
+
+/* Text arc: absolute overlay covering the full wrapper square, no image inside */
+.tea-arc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
 }
 
 /* ── SMALL SCREEN — single page view ──────────────── */
@@ -240,4 +267,7 @@ html, body {
   }
 
   .notebook-overlay { display: none; }
+
+  /* Arc text is too small to read at mobile sizes — hide it */
+  .tea-arc-label { display: none; }
 }
