@@ -35,13 +35,13 @@
 
 .home-tagline {
       position: absolute;
-      top: 28%;
-      left: 14%;
-      width: 80%;
+      top: 25%;
+      left: 10%;
+      width: 85%;
       font-family: 'TheGirlNextDoor', cursive;
-      font-size: 1.4cqw;
-      color: #333;
-      line-height: 1.7;
+      font-size: 1.59cqw;
+      color: #000000;
+      line-height: 1.6;
       pointer-events: none;
     }
 
@@ -63,43 +63,51 @@
       display: block;
     }
 
-    .home-youtube-btn {
+    /* Spotify icon — independent, links to the show's Spotify page, beside Brianna's polaroid */
+    .home-spotify-icon {
       position: absolute;
-      top: 40%;
-      left: -6%;
-      width: 65%;
-      text-align: center;
+      top: 39%;
+      left: 80%;
+      width: 15%;
       pointer-events: auto;
+      cursor: pointer;
+      z-index: 25;
     }
-    .home-youtube-btn img {
-      width: 30%;
-      transition: transform 0.15s, filter 0.15s;
+    .home-spotify-icon img {
+      width: 100%;
+      display: block;
+      transition: transform 0.15s;
     }
-    .home-youtube-btn:hover img {
+    .home-spotify-icon:hover img {
       transform: scale(1.1);
-      filter: drop-shadow(2px 6px 12px rgba(0,0,0,0.3));
     }
 
-    /* "learn about the project!" label above the Stanford sticker */
+    /* "about the project!" label — nested inside .stanford-item, positioned relative to it */
     .home-learn-label {
       position: absolute;
-      top: 65%;
-      left: -2%;
-      width: 55%;
+      top: 25%;
+      left: 45%;
+      transform: translateX(-50%);
+      width: 90%;
       text-align: center;
       font-family: 'TheGirlNextDoor', cursive;
-      font-size: 1.2cqw;
+      font-size: 1.6cqw;
       color: #9b1c1c;
+      text-shadow:
+        0 0 3px #fff,
+        0 0 3px #fff,
+        0 0 3px #fff;
       pointer-events: none;
+      z-index: 5;
     }
 
-    /* AI? disclosure button — left page, beside the polaroids */
+    /* AI? disclosure button — moved to the old YouTube button spot */
     .ai-disclosure-btn {
       position: absolute;
-      top: 47%;
-      left: 80%;
+      top: 45%;
+      left: 18%;
       font-family: 'VibeCheck', serif;
-      font-size: 1.1cqw;
+      font-size: 1.7cqw;
       color: #1a3a8f;
       background: transparent;
       border: 1.5px solid #1a3a8f;
@@ -223,6 +231,13 @@
 
         <p class="home-tagline">We're here to fill you in on the latest city hall drama — from one bestie to another.</p>
 
+        <!-- Stanford image + "about the project!" label — nested so they move as one object -->
+        <!-- Rendered before the polaroids so it sits underneath them -->
+        <div class="nb-item stanford-item" data-href="about.html">
+          <img src="assetts/Stanford2.PNG" alt="Stanford">
+          <p class="home-learn-label">about the project!</p>
+        </div>
+
         <!-- Both polaroids grouped — hover and click as one unit -->
         <div class="nb-item team-polaroid-group" data-href="team.html">
           <div class="ella-polaroid">
@@ -233,17 +248,12 @@
           </div>
         </div>
 
-        <a class="home-youtube-btn" href="https://www.youtube.com/watch?v=NUsSuOZ_5bk" target="_blank">
-          <img src="assetts/YouTube.png" alt="Watch on YouTube">
+        <!-- Spotify icon — independent, links to the show's Spotify page, beside Brianna's polaroid -->
+        <a class="home-spotify-icon" href="https://open.spotify.com/show/033seVUm6jMRStcKB9tdyA?si=e5c0af6f29e74e38" target="_blank">
+          <img src="assetts/Spotify.png" alt="Spotify">
         </a>
 
-        <p class="home-learn-label">about the project!</p>
-
-        <div class="nb-item stanford-item" data-href="about.html">
-          <img src="assetts/Stanford2.PNG" alt="Stanford">
-        </div>
-
-        <!-- AI disclosure trigger — beside the polaroids -->
+        <!-- AI disclosure trigger — moved to the old YouTube button spot -->
         <button class="ai-disclosure-btn" onclick="document.getElementById('ai-modal').classList.add('open')" aria-label="AI Disclosures">AI?</button>
 
       </div><!-- /.nb-page-left -->
@@ -262,12 +272,6 @@
            Surveillance Fraud and Bikers - Oh My!
           </div>
         </div>
-
-        <div class="nb-item radio-item" data-href="episode1.html">
-          <img src="assetts/Radio_Sticker.png" alt="Tune in">
-          <p class="tune-in">See where the radio takes you!</p>
-        </div>
-
 
       </div><!-- /.nb-page-right -->
 

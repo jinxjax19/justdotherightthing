@@ -57,41 +57,42 @@
     .ep1-description {
       position: absolute;
       top: 60%;
-      left: 15%;
+      left: 14%;
       width: 82%;
       font-family: 'Outfit', cursive;
-      font-size: 1cqw;
-      color: #1a4db8;
+      font-size: 1.25cqw;
+      color: #1a3a8f;
       line-height: 1.6;
       opacity: 0.78;
       pointer-events: none;
     }
 
+    /* Embedded video container — simple blue border, 16:9 aspect ratio */
     .ep1-film {
       left: 55%;
-      top: 42%;
+      top: 40%;
       transform: translate(-50%, -50%);
-      width: 65%;
+      width: 80%;
+      aspect-ratio: 16 / 9;
+      border: 3px solid #1a3a8f;
+      border-radius: 4px;
+      overflow: hidden;
     }
+    /* No hover animation — the iframe inside needs a stable hit area to be clickable */
     .ep1-film:hover {
-      transform: translate(-50%, -50%) translateY(-4px) scale(1.04);
-    }
-
-    /* YouTube icon overlaid inside the film strip group */
-    .ep1-youtube-overlay {
-      position: absolute;
-      top: 55%;
-      left: 50%;
       transform: translate(-50%, -50%);
-      width: 20% !important;
-      z-index: 20;
-      pointer-events: none;
+    }
+    .ep1-film iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
     /* 16:9 video embed — padding-top trick maintains aspect ratio */
     .ep1-video-wrap {
       position: absolute;
-      top: 12%;
+      top: 11%;
       left: 15.5%;
       width: 69%;
       padding-top: calc(69% * 9 / 16);
@@ -124,12 +125,15 @@
     .ep1-vibecheck-wrap {
       position: absolute;
       top: 49%;
+      bottom: 2%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
       font-family: 'Outfit', sans-serif;
       opacity: 0.72;
       pointer-events: none;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Section header rows inside the comments table — matches Outfit style of data cells */
@@ -237,11 +241,14 @@
     .ep1-decisions-wrap {
       position: absolute;
       top: 49%;
+      bottom: 2%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
       opacity: 0.72;
       pointer-events: none;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Section title for Votes */
@@ -283,11 +290,14 @@
     .ep1-money-wrap {
       position: absolute;
       top: 49%;
+      bottom: 2%;
       left: 5%;
       width: 90%;
       padding: 0 1%;
       opacity: 0.72;
       pointer-events: none;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Money title — text replaces the old PNG asset */
@@ -297,13 +307,16 @@
       margin-bottom: 0.3em;
     }
 
-    /* Section titles are clickable — override parent pointer-events:none */
+    /* Section titles are clickable — override parent pointer-events:none.
+       flex-shrink:0 keeps the title at full size inside the flex column,
+       so only the table area below it shrinks/scrolls. */
     .money-title,
     .vibecheck-title,
     .decisions-title {
       cursor: pointer;
       pointer-events: auto;
       transition: opacity 0.15s;
+      flex-shrink: 0;
     }
     .money-title:hover,
     .vibecheck-title:hover,
@@ -361,9 +374,12 @@
     }
     .ep1-info-body p { margin-bottom: 0.9em; }
 
-    /* Scrollable wrapper for the decisions (votes) table */
+    /* Scrollable wrapper for the decisions (votes) table — fills the
+       remaining space in .ep1-decisions-wrap so the table (and its
+       scrollbar) always stays inside the page, regardless of window size */
     .ep1-decisions-scroll {
-      max-height: 26vh;
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
       pointer-events: auto;
     }
@@ -392,9 +408,11 @@
       padding-top: 1% !important;
     }
 
-    /* Scrollable wrapper for the vibes table — mirrors money scroll */
+    /* Scrollable wrapper for the vibes table — fills the remaining space
+       in .ep1-vibecheck-wrap so it always stays inside the page */
     .ep1-vibes-scroll {
-      max-height: 26vh;
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
       pointer-events: auto;
     }
@@ -410,10 +428,12 @@
       z-index: 1;
     }
 
-    /* Scrollable wrapper for the money table — pointer-events:auto so the user
-       can actually scroll; parent wrap has pointer-events:none */
+    /* Scrollable wrapper for the money table — fills the remaining space
+       in .ep1-money-wrap so it always stays inside the page; pointer-events:auto
+       so the user can actually scroll; parent wrap has pointer-events:none */
     .ep1-money-scroll {
-      max-height: 26vh;
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
       pointer-events: auto;
     }
@@ -480,9 +500,15 @@
       <!-- Left page -->
       <div class="nb-page nb-page-left">
 
-        <!-- Film strip — click to open YouTube video -->
-        <div class="nb-item ep1-film" data-href="https://www.youtube.com/watch?v=NUsSuOZ_5bk">
-          <img src="assetts/film_full.PNG" alt="Episode 1">
+        <!-- Embedded YouTube video with a simple blue border -->
+        <div class="nb-item ep1-film">
+          <iframe
+            src="https://www.youtube.com/embed/NUsSuOZ_5bk"
+            title="Surveillance Fraud and Bikers - Oh My!"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
         </div>
 
         <!-- Episode description in Girl Next Door font -->
