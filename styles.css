@@ -228,8 +228,3 @@ html, body {
   overflow: visible;
 }
 
-
-
-  /* Arc text is too small to read at mobile sizes — hide it */
-  .tea-arc-label { display: none; }
-}
