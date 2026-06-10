@@ -184,6 +184,66 @@
     }
     .ai-modal-body p { margin-bottom: 0.9em; }
 
+    /* Red arrow link inside the AI Disclosures modal — opens the Data Documentation popup */
+    .ai-modal-link-arrow {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0 0.15em;
+      color: #c0392b;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      vertical-align: middle;
+      line-height: 1;
+      transition: transform 0.15s;
+    }
+    .ai-modal-link-arrow:hover { transform: translateX(3px); }
+
+    /* Back-pointing arrow buttons (e.g. "Back" link on Data Documentation page 2) hover the other way */
+    .ai-modal-link-arrow.back-arrow:hover { transform: translateX(-3px); }
+
+    /* Section heading inside the Data Documentation modal (e.g. "Lessons Learned") */
+    .ai-modal-subhead {
+      display: block;
+      font-family: 'VibeCheck', serif;
+      font-size: 1.4rem;
+      margin: 0 0 0.6em;
+    }
+
+    /* Sub-section heading inside the Data Documentation modal (e.g. "General") */
+    .ai-modal-subhead2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin: 1em 0 0.4em;
+    }
+
+    /* Next/back page controls inside the Data Documentation modal */
+    .ai-modal-page-nav {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.2rem;
+    }
+    .ai-modal-page-nav.back {
+      justify-content: flex-start;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .ai-modal-page-nav .ai-modal-link-arrow {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Header text inside the Data Documentation modal is red; body text stays black */
+    #data-doc-modal .ai-modal-title,
+    #data-doc-modal .ai-modal-subhead,
+    #data-doc-modal .ai-modal-subhead2,
+    #data-doc-modal .ai-modal-link-arrow {
+      color: #c0392b;
+    }
+
     /* Text etched into the wood surface */
     .wood-etching {
       position: absolute;
@@ -254,7 +314,7 @@
         </a>
 
         <!-- AI disclosure trigger — moved to the old YouTube button spot -->
-        <button class="ai-disclosure-btn" onclick="document.getElementById('ai-modal').classList.add('open')" aria-label="AI Disclosures">AI?</button>
+        <button class="ai-disclosure-btn" onclick="document.getElementById('data-doc-modal').classList.remove('open'); document.getElementById('ai-modal').classList.add('open')" aria-label="AI Disclosures">AI?</button>
 
       </div><!-- /.nb-page-left -->
 
@@ -326,10 +386,66 @@
       <p>The images on this site come from a combination of Adobe Stock (thanks for the wood), Nano Bananana (thanks for the tea, the notebook, the titles, and the watercolors), and our camera rolls + ProCreate skills.</p>
       <p>The episode summary was AI-generated using the transcript from our final cut. We asked it to give us 5 options for summaries, each about 100 words. We edited the final version.</p>
       <p>Ella used Claude to make all the HTML. After 10 weeks of vibe coding, Ella has gained a loose understanding of HTML.</p>
-      <p>Claude and spaCy worked together to make the Money, Vibes, and Decisions tabs possible. This process was also a long journey of trial and error. Details of this workflow and the fact-checking elements can be found here: [LINK]</p>
+      <p>Claude and spaCy worked together to make the Money, Vibes, and Decisions tabs possible. This process was also a long journey of trial and error. Details of this workflow and the fact-checking elements can be found here:
+        <button class="ai-modal-link-arrow" onclick="document.getElementById('ai-modal').classList.remove('open'); document.getElementById('data-doc-modal').classList.add('open'); showDataDocPage(1)" aria-label="Open Data Documentation">&#10148;</button>
+      </p>
     </div>
   </div>
 </div>
+
+<!-- Data Documentation modal — opened via the red arrow in the AI Disclosures modal -->
+<div id="data-doc-modal" class="ai-modal-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ai-modal-box">
+    <button class="ai-modal-close" onclick="document.getElementById('data-doc-modal').classList.remove('open')" aria-label="Close">×</button>
+    <span class="ai-modal-title">Data Documentation</span>
+
+    <!-- Page 1: Assumptions and Disclaimers -->
+    <div class="ai-modal-body" id="data-doc-page1">
+      <span class="ai-modal-subhead">Assumptions and Disclaimers</span>
+      <p>This product is designed for low-code journalists. They will need to spend 30 minutes setting up their Python and AI tools and links to their account. This should only have to happen once. After that, the interactions should primarily happen through Google Sheets.</p>
+      <p>This tool is designed to assist a journalist who sat through a city council meeting, is extremely familiar with the content, and is able to quickly check the tool's output. It adheres to a human centered ethos.</p>
+      <p>Code was written with the help of Claude Code in VSCode.</p>
+      <p>Full code can be found here: <a href="https://github.com/jinxjax19/citygossip" target="_blank" rel="noopener">github.com/jinxjax19/citygossip</a></p>
+      <div class="ai-modal-page-nav">
+        <button class="ai-modal-link-arrow" onclick="showDataDocPage(2)" aria-label="Next page: Lessons Learned">Lessons Learned &#10148;</button>
+      </div>
+    </div>
+
+    <!-- Page 2: Lessons Learned -->
+    <div class="ai-modal-body" id="data-doc-page2" style="display:none">
+      <div class="ai-modal-page-nav back">
+        <button class="ai-modal-link-arrow back-arrow" onclick="showDataDocPage(1)" aria-label="Back to Assumptions and Disclaimers">&#11013; Back</button>
+      </div>
+      <span class="ai-modal-subhead">Lessons Learned</span>
+
+      <p class="ai-modal-subhead2">General</p>
+      <p>Quality of audio impacted the quality of the transcript: screen recording was lower quality than recording to a Zoom recorder.</p>
+      <p>Time stamps were key for fact checking. Numbers and policy decisions and public comments came in large chunks. The fastest way to fact check was to listen through that chunk at 2x speed.</p>
+      <p>This process works best on meetings with one big controversy.</p>
+
+      <p class="ai-modal-subhead2">Public Comment Extraction</p>
+      <p>Individual comment extraction was by far the most difficult part. This ended up requiring significant edits and hand-checking. This process could likely be improved with additional prompting or with prompting baked into transcription so that comment separation happens with both audio and textual cues.</p>
+      <p>Theme identification worked seamlessly for the overall meeting.</p>
+      <p>Pro/con sentiment analysis was seamless and the AI outperformed the human in multiple tests.</p>
+      <p>For the pro/con public comment themes, the theme analysis sometimes picked up irrelevant themes. For example, many of the pro-bike lane commenters mentioned that they "understood the parking concerns" which led parking to incorrectly be a theme in the pro-bike lane content.</p>
+
+      <p class="ai-modal-subhead2">Number Extraction</p>
+      <p>Number extraction was much spottier than public comment and required a scoped ask. For this meeting we used money because the budget was a major point of content. We could have also looked at the number of people surveyed and number of public meetings held. We could have made a timeline of events. We could have made notes of the numbers of bikers reported using the bike lanes by different groups. The sky is the limit here as long as the ask is narrow.</p>
+      <p>After running the pipeline, it takes about an hour to do a final fact-check. While there were not hallucinations in the final product, there were four main errors: (1) missing numbers that were on the slides but not spoken into the transcript, (2) missing numbers where speakers stumbled and an "um" split the sentence, (3) insufficient details in the final summaries, at least for my editorial desires, (4) no differentiation between new numbers added and numbers that public commenters were paraphrasing to make a point. The final fact check took about 45 minutes and resulted in less than 10 corrections.</p>
+      <p>Sometimes the timestamp ended up 5-10 seconds behind the number it was citing.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggles between the two pages of the Data Documentation modal
+  function showDataDocPage(page) {
+    document.getElementById('data-doc-page1').style.display = (page === 1) ? 'block' : 'none';
+    document.getElementById('data-doc-page2').style.display = (page === 2) ? 'block' : 'none';
+    // Reset scroll so each page opens at the top
+    document.querySelector('#data-doc-modal .ai-modal-box').scrollTop = 0;
+  }
+</script>
 
 </body>
 </html>
