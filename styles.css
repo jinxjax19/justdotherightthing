@@ -108,9 +108,11 @@ html, body {
   top: -2%;
   width: 80%;
   transform: rotate(-1deg);
+  cursor: default;
 }
 .title-item:hover {
-  transform: rotate(-1deg) translateY(-4px) scale(1.04);
+  transform: rotate(-1deg);
+  filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.22));
 }
 
 /* Group container — the whole unit lifts and clicks together */
